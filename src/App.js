@@ -3,7 +3,7 @@ import "./App.scss"
 
 import AccountList from "./containers/account-list/AccountList"
 import Login from "./containers/login/Login"
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom"
+import { Switch, Route, HashRouter as Router } from "react-router-dom"
 import Otp from "./containers/otp/Otp"
 
 function App() {

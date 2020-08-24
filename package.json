@@ -2,7 +2,7 @@
   "name": "list-test",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://ltnsunrise.github.io/vccorp-list",
+  "homepage": "https://ltnsunrise.github.io/vccorp-list",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
