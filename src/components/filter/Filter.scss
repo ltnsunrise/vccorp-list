@@ -1,0 +1,47 @@
+.filter {
+  display: flex;
+  align-items: center;
+  margin: 0.5em 0.5em;
+  color: #2d3748;
+  letter-spacing: 0.4px;
+
+  font-size: 12px;
+  &__item {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    margin-left: 1em;
+    border: 1px solid #a0aec0;
+    padding: 0.25em 0.25em 0.25em 1em;
+    border-radius: 64px;
+    background-color: #cbd5e0;
+  }
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.icon-remove {
+  &.MuiSvgIcon-root {
+    font-size: 20px;
+    margin-left: 0.75em;
+  }
+}
+
+.icon-clear {
+  padding: 6px;
+  border-radius: 50%;
+  background-color: #545f6e;
+  // width: 28px;
+  // height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}

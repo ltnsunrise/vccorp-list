@@ -1,0 +1,14 @@
+@import "../../variable.scss";
+
+.MuiTableHead-root {
+  background-color: #edf2f7;
+
+  .MuiTableCell-head {
+    font-weight: bold;
+    color: #1a202c;
+  }
+}
+
+.MuiTableCell-root {
+  border: 1px solid #edf2f7;
+}
