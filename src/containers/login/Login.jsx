@@ -16,7 +16,7 @@ const Login = ({}) => {
     formData.set("mobile", mobile)
     try {
       const res = await axios.post(
-        "http://b11.cnnd.vn/g/api/user/send-sms-otp",
+        "https://b11.cnnd.vn/g/api/user/send-sms-otp",
         formData
       )
       localStorage.setItem("token", res?.data?.data?.access_token)

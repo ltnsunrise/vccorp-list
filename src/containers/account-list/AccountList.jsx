@@ -531,13 +531,13 @@ const AccountList = () => {
 
   async function getUsers() {
     try {
-      const res = await Axios.get(
-        `http://b11.cnnd.vn/social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=10`,
+      const { data } = await Axios.get(
+        `https://b11.cnnd.vn/social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=10`,
         {
           headers: { Authorization: `${localStorage.getItem("token")}` },
         }
       )
-      setUsers([...res?.data?.data?.data])
+      setUsers([...data?.data?.data])
     } catch (error) {
       console.error(error)
     }

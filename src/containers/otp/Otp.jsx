@@ -15,14 +15,14 @@ const Otp = () => {
     formData.set("otp", otp)
     try {
       const res1 = await Axios.post(
-        "http://b11.cnnd.vn/g/api/user/confirm-sms-otp",
+        "https://b11.cnnd.vn/g/api/user/confirm-sms-otp",
         formData,
         {
           headers: { Authorization: `${localStorage.getItem("token")}` },
         }
       )
       const res = await Axios.get(
-        "http://b11.cnnd.vn/g/api/user/get-api-token",
+        "https://b11.cnnd.vn/g/api/user/get-api-token",
 
         {
           headers: { Authorization: `${res1?.data?.data?.access_token}` },
