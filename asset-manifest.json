@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/vccorp-list/static/css/main.bd723891.chunk.css",
-    "main.js": "/vccorp-list/static/js/main.1117a545.chunk.js",
-    "main.js.map": "/vccorp-list/static/js/main.1117a545.chunk.js.map",
+    "main.js": "/vccorp-list/static/js/main.9da97b17.chunk.js",
+    "main.js.map": "/vccorp-list/static/js/main.9da97b17.chunk.js.map",
     "runtime-main.js": "/vccorp-list/static/js/runtime-main.aa23b360.js",
     "runtime-main.js.map": "/vccorp-list/static/js/runtime-main.aa23b360.js.map",
     "static/js/2.2fcca4ed.chunk.js": "/vccorp-list/static/js/2.2fcca4ed.chunk.js",
     "static/js/2.2fcca4ed.chunk.js.map": "/vccorp-list/static/js/2.2fcca4ed.chunk.js.map",
     "index.html": "/vccorp-list/index.html",
-    "precache-manifest.b36d3a49df4383acdaef5bc79861a036.js": "/vccorp-list/precache-manifest.b36d3a49df4383acdaef5bc79861a036.js",
+    "precache-manifest.afd7aab0ca0258d60fe9d34f9657aead.js": "/vccorp-list/precache-manifest.afd7aab0ca0258d60fe9d34f9657aead.js",
     "service-worker.js": "/vccorp-list/service-worker.js",
     "static/css/main.bd723891.chunk.css.map": "/vccorp-list/static/css/main.bd723891.chunk.css.map",
     "static/js/2.2fcca4ed.chunk.js.LICENSE.txt": "/vccorp-list/static/js/2.2fcca4ed.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.aa23b360.js",
     "static/js/2.2fcca4ed.chunk.js",
     "static/css/main.bd723891.chunk.css",
-    "static/js/main.1117a545.chunk.js"
+    "static/js/main.9da97b17.chunk.js"
   ]
 }
