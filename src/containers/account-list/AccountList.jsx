@@ -3,7 +3,7 @@ import Filter from "../../components/filter/Filter"
 import Pagination from "../../components/pagination/Pagination"
 import List from "../../components/list/List"
 import "./AccountList.scss"
-import Axios from "axios"
+import { authFetch } from "../../shared/authFetch"
 
 // const dataUsers = [
 //   {
@@ -531,11 +531,8 @@ const AccountList = () => {
 
   async function getUsers() {
     try {
-      const { data } = await Axios.get(
-        `https://b11.cnnd.vn/social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=10`,
-        {
-          headers: { Authorization: `${localStorage.getItem("token")}` },
-        }
+      const { data } = await authFetch.get(
+        `social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=10`
       )
       setUsers([...data?.data?.data])
     } catch (error) {

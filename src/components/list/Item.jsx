@@ -58,7 +58,7 @@ const Item = ({ user }) => {
     formData.set("class", label)
     try {
       const { data } = await authFetch.post(
-        `system/page/update_class`,
+        `g/api/system/page/update_class`,
         formData
       )
     } catch (error) {
@@ -73,7 +73,7 @@ const Item = ({ user }) => {
 
     try {
       const { data } = await authFetch.post(
-        `system/page/update_class_type`,
+        `g/api/system/page/update_class_type`,
         formData
       )
     } catch (error) {
