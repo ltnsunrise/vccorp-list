@@ -19,20 +19,18 @@ const List = ({ users }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align='left'>NHÀ SẢN XUẤT</TableCell>
+              <TableCell>NHÀ SẢN XUẤT</TableCell>
               {width > 576 && (
                 <>
-                  <TableCell align='right'>NHÃN</TableCell>
-                  <TableCell align='right'>LOẠI</TableCell>
+                  <TableCell>NHÃN</TableCell>
+                  <TableCell>LOẠI</TableCell>
                 </>
               )}
-              <TableCell align='right'></TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
-              <Item key={user.id} user={user} />
-            ))}
+            {users && users.map((user) => <Item key={user?.id} user={user} />)}
           </TableBody>
         </Table>
       </TableContainer>

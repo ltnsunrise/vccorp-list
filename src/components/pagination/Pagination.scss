@@ -8,7 +8,7 @@
   //   flex: 0 0 25em;
   color: #333333;
 
-  button {
+  .btn {
     display: flex;
     border-radius: 20px;
     justify-content: center;
@@ -47,5 +47,20 @@
 @media only screen and (min-width: $mobile_bp) {
   .pagination {
     justify-content: flex-end;
+    .number {
+      border-radius: 2px;
+    }
+
+    .btn {
+      padding: 0.5em 0.5em;
+    }
+
+    .btn-right {
+      border-radius: 0px 4px 4px 0px;
+    }
+
+    .btn-left {
+      border-radius: 4px 0px 0px 4px;
+    }
   }
 }

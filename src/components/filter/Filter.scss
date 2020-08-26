@@ -1,9 +1,14 @@
+@import "../../variable.scss";
+
 .filter {
   display: flex;
+  height: 100%;
+
   align-items: center;
-  margin: 0.5em 0.5em;
+  margin: 0 0.5em;
   color: #2d3748;
   letter-spacing: 0.4px;
+  padding: 1.5em 2.5em;
 
   font-size: 12px;
   &__item {
@@ -17,6 +22,9 @@
     border-radius: 64px;
     background-color: #cbd5e0;
   }
+}
+
+@media only screen and (min-width: $mobile-bp) {
 }
 
 .clickable {
