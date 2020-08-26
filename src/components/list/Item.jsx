@@ -139,8 +139,8 @@ const Item = ({ user }) => {
 
   return (
     <>
-      <TableRow hover className='container'>
-        <TableCell align='left '>
+      <tr>
+        <td>
           <div className='user' onClick={handleExpand}>
             <Tooltip title={getStatus(user.status)}>
               <img
@@ -156,18 +156,18 @@ const Item = ({ user }) => {
               <div>owner: {user.phoneOwner}</div>
             </div>
           </div>
-        </TableCell>
+        </td>
         {width > 576 && (
           <>
-            <TableCell align='right'>{displayLabel()}</TableCell>
-            <TableCell align='right'>{displayType()}</TableCell>
+            <td align='right'>{displayLabel()}</td>
+            <td align='right'>{displayType()}</td>
           </>
         )}
 
-        <TableCell align=''>
+        <td align='center'>
           <MoreHorizIcon />
-        </TableCell>
-      </TableRow>
+        </td>
+      </tr>
 
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <div className='expand'>

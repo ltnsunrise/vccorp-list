@@ -1,14 +1,43 @@
 @import "../../variable.scss";
 
-.MuiTableHead-root {
-  background-color: #edf2f7;
+// .MuiTableHead-root {
+//   background-color: #edf2f7;
 
-  .MuiTableCell-head {
-    font-weight: bold;
-    color: #1a202c;
+//   .MuiTableCell-head {
+//     font-weight: bold;
+//     color: #1a202c;
+//   }
+// }
+
+// .MuiTableCell-root {
+//   border: 1px solid #edf2f7;
+// }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  td,
+  th {
+    border: 1px solid #e2e8f0;
+    padding: 8px;
   }
-}
 
-.MuiTableCell-root {
-  border: 1px solid #edf2f7;
+  thead {
+    background: #edf2f7;
+    th {
+      padding: 1.5em 0;
+      color: #1a202c;
+      &:first-child {
+        text-align: left;
+        padding-left: 5.5em;
+      }
+    }
+  }
+
+  tr {
+    &:hover {
+      background: #edf2f7;
+    }
+  }
 }
