@@ -142,7 +142,9 @@ const Search = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
                 <TextField {...params} placeholder='Trạng thái' value={s} />
               )}
             />
-            <button type='submit'>Tìm kiếm</button>
+            <button className='btn' type='submit'>
+              Tìm kiếm
+            </button>
           </div>
         </form>
       )}

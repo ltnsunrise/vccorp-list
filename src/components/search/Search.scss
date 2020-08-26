@@ -81,14 +81,37 @@
   position: fixed;
   background-color: #fff;
   width: 500px;
-  top: 3.5em;
-  left: 2.25em;
+  top: 5em;
+  left: 2.5em;
   z-index: 5;
+  font-size: 14px;
 
   display: flex;
   flex-direction: column;
   padding: 1.5em;
   border-radius: 4px;
+  box-shadow: 0 0 8px rgba(91, 91, 91, 0.24);
+
+  .MuiTextField-root {
+    border: 1px solid #82868e;
+    padding: 0 1em;
+    margin: 0.5em 0;
+    border-radius: 4px;
+    .MuiInputBase-input {
+      &::placeholder {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .btn {
+    border: none;
+    padding: 1em 0;
+    margin-top: 0.5em;
+    background-color: rgb(2, 42, 96);
+    border-radius: 4px;
+    color: #fff;
+  }
 }
 
 .backdrop {
