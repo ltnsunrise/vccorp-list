@@ -6,24 +6,28 @@ import { useCurrentWitdh } from "../../shared/custom-hooks/useCurrentWidth"
 
 const List = ({ users }) => {
   let width = useCurrentWitdh()
+  if (!users) return <div className='no-data'>Không có dữ liệu</div>
+
   return (
-    <div>
+    <>
       <table className='table'>
         <thead>
-          <th>NHÀ SẢN XUẤT</th>
-          {width > 576 && (
-            <>
-              <th>NHÃN</th>
-              <th>LOẠI</th>
-            </>
-          )}
-          <th></th>
+          <tr>
+            <th>NHÀ SẢN XUẤT</th>
+            {width > 576 && (
+              <>
+                <th align='center'>NHÃN</th>
+                <th align='center'>LOẠI</th>
+              </>
+            )}
+            <th></th>
+          </tr>
         </thead>
         <tbody>
           {users && users.map((user) => <Item key={user?.id} user={user} />)}
         </tbody>
       </table>
-    </div>
+    </>
   )
 }
 

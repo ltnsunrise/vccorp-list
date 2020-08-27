@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import "./Item.scss"
 
-import TableCell from "@material-ui/core/TableCell"
-import TableRow from "@material-ui/core/TableRow"
 import { Tooltip, Select, MenuItem } from "@material-ui/core"
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
@@ -139,7 +137,7 @@ const Item = ({ user }) => {
 
   return (
     <>
-      <tr>
+      <tr className='table-row'>
         <td>
           <div className='user' onClick={handleExpand}>
             <Tooltip title={getStatus(user.status)}>

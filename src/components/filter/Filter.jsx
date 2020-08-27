@@ -11,6 +11,8 @@ const Filter = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
     setStatus(``)
   }
 
+  if (!(keyword || label || status === 0 || status === 1)) return <div></div>
+
   return (
     <div className='filter'>
       {(keyword || label || status === 0 || status === 1) && (

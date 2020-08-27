@@ -55,6 +55,7 @@
 
   &.MuiSelect-select {
     padding-right: 3em !important;
+    font-size: 14px;
   }
 }
 
@@ -71,5 +72,11 @@
       min-width: 4em;
       margin-right: 1em;
     }
+  }
+}
+
+.table-row {
+  td {
+    padding: 0.6em 0;
   }
 }

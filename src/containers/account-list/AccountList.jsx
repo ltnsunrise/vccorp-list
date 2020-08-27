@@ -5,6 +5,7 @@ import List from "../../components/list/List"
 import "./AccountList.scss"
 import { authFetch } from "../../shared/authFetch"
 import Search from "../../components/search/Search"
+import { CircularProgress } from "@material-ui/core"
 
 const AccountList = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -12,6 +13,7 @@ const AccountList = () => {
   const [label, setLabel] = useState("")
   const [status, setStatus] = useState("")
   const [keyword, setKey] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
   function handleNextPage() {
     setCurrentPage(currentPage + 1)
@@ -28,16 +30,22 @@ const AccountList = () => {
   }, [currentPage, keyword, label, status])
 
   async function getUsers() {
+    setIsLoading(true)
     try {
       const { data } = await authFetch.get(
         `social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=30&class=${label}&status=${status}&Keyword=${keyword}`
       )
+      if (data) setIsLoading(false)
       setUsers(data?.data?.data)
 
       return () => setUsers([])
     } catch (error) {
       console.error(error)
     }
+  }
+
+  function handleSetPage(number) {
+    setCurrentPage(number)
   }
 
   return (
@@ -63,14 +71,23 @@ const AccountList = () => {
         />
       </div>
       <div className='pagination-container'>
-        <Pagination
-          currentPage={currentPage}
-          onNextPage={handleNextPage}
-          onPreviousPage={handlePreviousPage}
-        />
+        {users?.length && (
+          <Pagination
+            currentPage={currentPage}
+            onNextPage={handleNextPage}
+            onPreviousPage={handlePreviousPage}
+            onSetPage={(number) => setCurrentPage(number)}
+          />
+        )}
       </div>
       <div className='list-container'>
-        <List users={users} />
+        {isLoading ? (
+          <div align='center'>
+            <CircularProgress />
+          </div>
+        ) : (
+          <List users={users} />
+        )}
       </div>
     </div>
   )

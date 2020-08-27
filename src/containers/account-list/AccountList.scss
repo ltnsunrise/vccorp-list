@@ -2,6 +2,8 @@
 
 .account-list {
   display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100vh;
 }
 
 .pagination-container {
@@ -10,6 +12,9 @@
 
   background: #edf2f7;
   padding: 0.5em 0.5em;
+
+  // position: fixed;
+  // bottom: 0;
 }
 
 .search-container {

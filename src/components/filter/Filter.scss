@@ -13,9 +13,9 @@
   font-size: 12px;
   &__item {
     display: flex;
-
     justify-content: center;
     align-items: center;
+    flex: 0 0 auto;
     margin-left: 1em;
     border: 1px solid #a0aec0;
     padding: 0.25em 0.25em 0.25em 1em;
@@ -42,8 +42,7 @@
   padding: 6px;
   border-radius: 50%;
   background-color: #545f6e;
-  // width: 28px;
-  // height: 28px;
+
   display: flex;
   align-items: center;
   justify-content: center;

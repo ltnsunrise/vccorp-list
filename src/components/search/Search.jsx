@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import "./Search.scss"
 import { accountClasses } from "../../shared/enums/accountLabelEnum"
 import SearchIcon from "@material-ui/icons/Search"
@@ -21,6 +21,7 @@ const Search = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
   const [s, setS] = useState(status)
   const [filterToggle, setFilterToggle] = useState(false)
   const width = useCurrentWitdh()
+  const form = useRef(null)
 
   const defaultPropsStatus = {
     options: statusList,
@@ -67,10 +68,7 @@ const Search = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
         <div className='search-box'>
           {width < 576 ? (
             <div>
-              <SearchIcon
-                className='icon icon-search'
-                onClick={() => setFilterToggle(!filterToggle)}
-              />
+              <SearchIcon className='icon icon-search' onClick={handleToggle} />
             </div>
           ) : (
             <>
@@ -103,9 +101,8 @@ const Search = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
           )}
         </div>
       </form>
-
       {filterToggle && (
-        <form onSubmit={onSubmitAll}>
+        <form onSubmit={onSubmitAll} ref={form}>
           <div
             className='backdrop'
             onClick={() => setFilterToggle(!filterToggle)}></div>
