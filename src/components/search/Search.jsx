@@ -7,6 +7,7 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp"
 import Autocomplete from "@material-ui/lab/Autocomplete"
 import ClearIcon from "@material-ui/icons/Clear"
 import TextField from "@material-ui/core/TextField"
+import ArrowBackIcon from "@material-ui/icons/ArrowBack"
 import { useCurrentWitdh } from "../../shared/custom-hooks/useCurrentWidth"
 
 const statusList = [
@@ -116,6 +117,13 @@ const Search = ({
             className='backdrop'
             onClick={() => setFilterToggle(!filterToggle)}></div>
           <div className='form'>
+            {width < 576 && (
+              <ArrowBackIcon
+                className='icon'
+                onClick={() => setFilterToggle(!filterToggle)}
+              />
+            )}
+
             <TextField
               type='text'
               value={k}

@@ -56,27 +56,6 @@
   }
 }
 
-@media only screen and (max-width: $mobile-bp) {
-  .search-box {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    justify-content: center;
-    &:hover {
-      background-color: rgba(#82868e, 0.1);
-    }
-
-    .icon-search {
-      position: relative;
-      margin: 0 0em;
-      top: 3px;
-      &:hover {
-        background-color: transparent;
-      }
-    }
-  }
-}
-
 .form {
   position: fixed;
   background-color: #fff;
@@ -119,4 +98,36 @@
   right: 0;
   bottom: 0;
   z-index: 1;
+}
+
+@media only screen and (max-width: $mobile-bp) {
+  .search-box {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    margin: 1em 1.5em;
+
+    &:hover {
+      background-color: rgba(#82868e, 0.1);
+    }
+
+    .icon-search {
+      position: relative;
+      margin: 0 0;
+      top: 3px;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .form {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+  }
 }
