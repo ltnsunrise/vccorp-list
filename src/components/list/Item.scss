@@ -10,7 +10,7 @@
     height: 32px;
     border-radius: 50%;
 
-    margin: 0.5em 1.5em;
+    margin: 0 20px;
     border: 1px solid #f2994a;
 
     &.online {
@@ -23,11 +23,14 @@
     color: #4a5568;
     font-size: 12px;
     letter-spacing: 0.4px;
+    line-height: 14px;
 
-    strong {
+    &__name {
       color: #2d3748;
       font-size: 14px;
       letter-spacing: 0.25px;
+      font-weight: normal;
+      padding-bottom: 4px;
     }
   }
 }
@@ -77,11 +80,27 @@
 
 .table-row {
   td {
-    padding: 0.6em 0;
+    padding: 11px 0;
   }
 }
 
 .select-container {
-  padding-right: 1em;
+  padding-right: 25px;
   display: inline-block;
+}
+
+.icon-expand {
+}
+.icon-edit {
+  margin: 0 12px;
+  opacity: 0.5;
+}
+tr:hover {
+  .icon-edit {
+    opacity: 1;
+  }
+}
+
+.icon {
+  color: #2d3748;
 }

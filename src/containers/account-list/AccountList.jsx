@@ -26,7 +26,7 @@ const AccountList = () => {
   const [pageSize, setPageSize] = useState(30)
   const [isDisableNext, setIsDisableNext] = useState(false)
   const [maxPage, setMaxPage] = useState(0)
-  const { addToast } = useToasts()
+  // const { addToast } = useToasts()
 
   function handleNextPage() {
     setCurrentPage(currentPage + 1)
@@ -57,13 +57,13 @@ const AccountList = () => {
         setUsers(data.data?.data)
         setTotalPage(data.data.total)
 
-        addToast("Successfully", {
-          appearance: "success",
-          autoDismiss: true,
-        })
+        // addToast("Successfully", {
+        //   appearance: "success",
+        //   autoDismiss: true,
+        // })
       }
     } catch (error) {
-      addToast("Error", { appearance: "error", autoDismiss: true })
+      // addToast("Error", { appearance: "error", autoDismiss: true })
     }
   }, [currentPage, keyword, label, status])
 

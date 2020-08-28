@@ -13,16 +13,17 @@ const List = ({ users }) => {
       <table className='table'>
         <thead>
           <tr>
-            <th>NHÀ SẢN XUẤT</th>
+            <td>NHÀ SẢN XUẤT</td>
             {width > 576 && (
               <>
-                <th width='200'>NHÃN</th>
-                <th width='200'>LOẠI</th>
+                <td width='200'>NHÃN</td>
+                <td width='200'>LOẠI</td>
               </>
             )}
-            <th width='100'></th>
+            <td width='100'></td>
           </tr>
         </thead>
+
         <tbody>
           {users && users.map((user) => <Item key={user?.id} user={user} />)}
         </tbody>

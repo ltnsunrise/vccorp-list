@@ -13,7 +13,7 @@ import {
 } from "../../shared/enums/accountTypeEnum"
 import { accountClasses } from "../../shared/enums/accountLabelEnum"
 import { authFetch } from "../../shared/authFetch"
-import { useToasts } from "react-toast-notifications"
+// import { useToasts } from "react-toast-notifications"
 
 const Item = ({ user }) => {
   const [label, setLabel] = useState(user.class)
@@ -22,7 +22,7 @@ const Item = ({ user }) => {
   const loadedLabel = useRef(false)
   const loadedType = useRef(false)
   let width = useCurrentWitdh()
-  const { addToast } = useToasts()
+  // const { addToast } = useToasts()
 
   useEffect(() => {
     if (width > 576) setExpanded(false)
@@ -61,12 +61,12 @@ const Item = ({ user }) => {
         `g/api/system/page/update_class`,
         formData
       )
-      addToast("Saved Successfully", {
-        appearance: "success",
-        autoDismiss: true,
-      })
+      // addToast("Saved Successfully", {
+      //   appearance: "success",
+      //   autoDismiss: true,
+      // })
     } catch (error) {
-      addToast("Error", { appearance: "error", autoDismiss: true })
+      // addToast("Error", { appearance: "error", autoDismiss: true })
     }
   }
 
@@ -80,12 +80,12 @@ const Item = ({ user }) => {
         `g/api/system/page/update_class_type`,
         formData
       )
-      addToast("Saved Successfully", {
-        appearance: "success",
-        autoDismiss: true,
-      })
+      // addToast("Saved Successfully", {
+      //   appearance: "success",
+      //   autoDismiss: true,
+      // })
     } catch (error) {
-      addToast("Error", { appearance: "error", autoDismiss: true })
+      // addToast("Error", { appearance: "error", autoDismiss: true })
     }
   }
 
@@ -121,7 +121,7 @@ const Item = ({ user }) => {
               autoWidth={true}
               value={type}
               onChange={(e) => setType(e.target.value)}
-              IconComponent={ExpandMoreIcon}>
+              IconComponent={<ExpandMoreIcon className='icon' />}>
               {accountCredibility.map((item) => (
                 <MenuItem key={item.value} value={item.value}>
                   {item.name}
@@ -161,13 +161,11 @@ const Item = ({ user }) => {
                   user.avatar ||
                   "http://vietid.vcmedia.vn/thumb_w/100/vietid/image/avatars/default.png"
                 }
-                alt='avatar'
+                alt='avt'
               />
             </Tooltip>
             <div className='user__info'>
-              <div>
-                <strong>{user.fullName}</strong>
-              </div>
+              <div className='user__info__name'>{user.fullName}</div>
               <div>owner: {user.phoneOwner}</div>
             </div>
           </div>
@@ -180,7 +178,8 @@ const Item = ({ user }) => {
         )}
 
         <td align='center'>
-          <MoreHorizIcon />
+          <MoreHorizIcon className='icon icon-edit' />
+          <ExpandMoreIcon className='icon icon-expand' />
         </td>
       </tr>
 
