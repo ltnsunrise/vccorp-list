@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/vccorp-list/static/css/main.646369a4.chunk.css",
+    "main.css": "/vccorp-list/static/css/main.1a498f98.chunk.css",
     "main.js": "/vccorp-list/static/js/main.bc602336.chunk.js",
     "main.js.map": "/vccorp-list/static/js/main.bc602336.chunk.js.map",
     "runtime-main.js": "/vccorp-list/static/js/runtime-main.aa23b360.js",
@@ -8,16 +8,16 @@
     "static/js/2.bea2da4d.chunk.js": "/vccorp-list/static/js/2.bea2da4d.chunk.js",
     "static/js/2.bea2da4d.chunk.js.map": "/vccorp-list/static/js/2.bea2da4d.chunk.js.map",
     "index.html": "/vccorp-list/index.html",
-    "precache-manifest.5ab120f7f33bfc87bd6d9120f99134cf.js": "/vccorp-list/precache-manifest.5ab120f7f33bfc87bd6d9120f99134cf.js",
+    "precache-manifest.baa11691ef2226b0dc9059b8e4874ca3.js": "/vccorp-list/precache-manifest.baa11691ef2226b0dc9059b8e4874ca3.js",
     "service-worker.js": "/vccorp-list/service-worker.js",
-    "static/css/main.646369a4.chunk.css.map": "/vccorp-list/static/css/main.646369a4.chunk.css.map",
+    "static/css/main.1a498f98.chunk.css.map": "/vccorp-list/static/css/main.1a498f98.chunk.css.map",
     "static/js/2.bea2da4d.chunk.js.LICENSE.txt": "/vccorp-list/static/js/2.bea2da4d.chunk.js.LICENSE.txt",
     "static/media/artwork.f616e04c.svg": "/vccorp-list/static/media/artwork.f616e04c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.aa23b360.js",
     "static/js/2.bea2da4d.chunk.js",
-    "static/css/main.646369a4.chunk.css",
+    "static/css/main.1a498f98.chunk.css",
     "static/js/main.bc602336.chunk.js"
   ]
 }
