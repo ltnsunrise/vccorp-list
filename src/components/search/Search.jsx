@@ -117,12 +117,10 @@ const Search = ({
             className='backdrop'
             onClick={() => setFilterToggle(!filterToggle)}></div>
           <div className='form'>
-            {width < 576 && (
-              <ArrowBackIcon
-                className='icon'
-                onClick={() => setFilterToggle(!filterToggle)}
-              />
-            )}
+            <ArrowBackIcon
+              className='icon icon-back'
+              onClick={() => setFilterToggle(!filterToggle)}
+            />
 
             <TextField
               type='text'

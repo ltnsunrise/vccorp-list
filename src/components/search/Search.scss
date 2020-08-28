@@ -71,6 +71,11 @@
   border-radius: 4px;
   box-shadow: 0 0 8px rgba(91, 91, 91, 0.24);
 
+  .icon-back {
+    display: none;
+    visibility: hidden;
+  }
+
   .MuiTextField-root {
     border: 1px solid #82868e;
     padding: 0 1em;
@@ -127,7 +132,11 @@
     left: 0 !important;
     right: 0;
     bottom: 0;
-
     width: 100%;
+
+    .icon-back {
+      display: inline-block;
+      visibility: visible;
+    }
   }
 }

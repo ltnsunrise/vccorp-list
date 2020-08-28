@@ -11,6 +11,7 @@ const Pagination = ({
   onSetPage,
   isDisableNext,
   maxPage,
+  users,
 }) => {
   let width = useCurrentWitdh()
   const [page, setPage] = useState(currentPage)
@@ -38,6 +39,10 @@ const Pagination = ({
       onSetPage(page)
     }
   }
+
+  // if (users) {
+  //   return <div></div>
+  // }
 
   return (
     <div className='pagination'>

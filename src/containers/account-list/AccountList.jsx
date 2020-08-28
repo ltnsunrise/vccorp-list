@@ -113,6 +113,7 @@ const AccountList = () => {
             onSetPage={(number) => setCurrentPage(number)}
             isDisableNext={isDisableNext}
             maxPage={maxPage}
+            users={users}
           />
         )}
       </div>
