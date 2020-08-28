@@ -157,7 +157,10 @@ const Item = ({ user }) => {
             <Tooltip title={getStatus(user.status)}>
               <img
                 className={`user__avatar ${user.status && "online"}`}
-                src={user.avatar}
+                src={
+                  user.avatar ||
+                  "http://vietid.vcmedia.vn/thumb_w/100/vietid/image/avatars/default.png"
+                }
                 alt='avatar'
               />
             </Tooltip>
