@@ -1,21 +1,38 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import "./Filter.scss"
 import CancelIcon from "@material-ui/icons/Cancel"
 import { ReactComponent as ArtworkIcon } from "../../assets/icons/artwork.svg"
 import { accountClasses } from "../../shared/enums/accountLabelEnum"
 
-const Filter = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
+const Filter = ({
+  label,
+  status,
+  keyword,
+  setLabel,
+  setStatus,
+  setKey,
+  setCurrentPage,
+}) => {
+  const [toggleStatus, setToggleStatus] = useState(false)
+  useEffect(() => {
+    if (status === "") return setToggleStatus(false)
+    if (Number(status) === 1 || Number(status) === 0)
+      return setToggleStatus(true)
+  }, [status])
+
   function onClear() {
-    setKey(``)
-    setLabel(``)
-    setStatus(``)
+    setKey("")
+    setLabel("")
+    setStatus("")
+    setCurrentPage(1)
+    setToggleStatus(false)
   }
 
-  if (!(keyword || label || status === 0 || status === 1)) return <div></div>
+  if (!(keyword || label || toggleStatus)) return <div></div>
 
   return (
     <div className='filter'>
-      {(keyword || label || status === 0 || status === 1) && (
+      {(keyword || label || status === 0 || toggleStatus) && (
         <div className='icon-clear clickable'>
           <ArtworkIcon onClick={onClear} />
         </div>
@@ -27,7 +44,8 @@ const Filter = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
           <CancelIcon
             className='clickable icon-remove'
             onClick={() => {
-              setKey(``)
+              setKey("")
+              setCurrentPage(1)
             }}
           />
         </div>
@@ -37,25 +55,29 @@ const Filter = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
         <div className='filter__item'>
           <strong>Nhãn:&nbsp;</strong>{" "}
           {accountClasses.map((item) => {
-            if (item.value === label) return item.name
+            if (item.value === Number(label)) return item.name
           })}
           <CancelIcon
             className='clickable icon-remove'
             onClick={() => {
-              setLabel(``)
+              setLabel("")
+              setCurrentPage(1)
             }}
           />
         </div>
       )}
 
-      {(status === 0 || status === 1) && (
+      {toggleStatus && (
         <div className='filter__item'>
           <strong>Trạng thái:&nbsp;</strong>{" "}
-          {status ? "Hoạt động" : "Không hoạt động"}{" "}
+          {Number(status) === 1 && "Hoạt động"}
+          {Number(status) === 0 && "Không hoạt động"}{" "}
           <CancelIcon
             className='clickable icon-remove'
             onClick={() => {
               setStatus("")
+              setToggleStatus(false)
+              setCurrentPage(1)
             }}
           />
         </div>

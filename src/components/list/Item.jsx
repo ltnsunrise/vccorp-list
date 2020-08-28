@@ -87,7 +87,7 @@ const Item = ({ user }) => {
 
   function displayLabel() {
     return (
-      <>
+      <div className='select-container'>
         <Select
           value={label}
           onChange={(e) => setLabel(e.target.value)}
@@ -98,7 +98,7 @@ const Item = ({ user }) => {
             </MenuItem>
           ))}
         </Select>
-      </>
+      </div>
     )
   }
 
@@ -106,30 +106,34 @@ const Item = ({ user }) => {
     return (
       <>
         {label === 1 && (
-          <Select
-            autoWidth={true}
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            IconComponent={ExpandMoreIcon}>
-            {accountCredibility.map((item) => (
-              <MenuItem key={item.value} value={item.value}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
+          <div className='select-container'>
+            <Select
+              autoWidth={true}
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              IconComponent={ExpandMoreIcon}>
+              {accountCredibility.map((item) => (
+                <MenuItem key={item.value} value={item.value}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
         )}
         {label === 3 && (
-          <Select
-            autoWidth={true}
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            IconComponent={ExpandMoreIcon}>
-            {accountClassLabel.map((item) => (
-              <MenuItem key={item.value} value={item.value}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
+          <div className='select-container'>
+            <Select
+              autoWidth={true}
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              IconComponent={ExpandMoreIcon}>
+              {accountClassLabel.map((item) => (
+                <MenuItem key={item.value} value={item.value}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
         )}
       </>
     )

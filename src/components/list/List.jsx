@@ -16,11 +16,11 @@ const List = ({ users }) => {
             <th>NHÀ SẢN XUẤT</th>
             {width > 576 && (
               <>
-                <th align='center'>NHÃN</th>
-                <th align='center'>LOẠI</th>
+                <th width='200'>NHÃN</th>
+                <th width='200'>LOẠI</th>
               </>
             )}
-            <th></th>
+            <th width='100'></th>
           </tr>
         </thead>
         <tbody>

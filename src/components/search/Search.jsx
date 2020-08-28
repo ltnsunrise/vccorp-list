@@ -14,7 +14,15 @@ const statusList = [
   { name: "Không hoạt động", value: 0 },
 ]
 
-const Search = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
+const Search = ({
+  label,
+  status,
+  keyword,
+  setLabel,
+  setStatus,
+  setKey,
+  setCurrentPage,
+}) => {
   const [l, setL] = useState(label)
   const [k1, setK1] = useState("")
   const [k, setK] = useState(keyword || k1)
@@ -40,6 +48,7 @@ const Search = ({ label, status, keyword, setLabel, setStatus, setKey }) => {
     setK("")
     setK1("")
     setS("")
+    setCurrentPage(1)
   }
 
   function onSubmitAll(e) {

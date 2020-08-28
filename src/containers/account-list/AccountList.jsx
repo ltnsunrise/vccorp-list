@@ -1,111 +1,84 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Filter from '../../components/filter/Filter';
-import Pagination from '../../components/pagination/Pagination';
-import List from '../../components/list/List';
-import './AccountList.scss';
-import { authFetch } from '../../shared/authFetch';
-import Search from '../../components/search/Search';
-import { CircularProgress } from '@material-ui/core';
-import { useLocation, useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from "react"
+import Filter from "../../components/filter/Filter"
+import Pagination from "../../components/pagination/Pagination"
+import List from "../../components/list/List"
+import "./AccountList.scss"
+import { authFetch } from "../../shared/authFetch"
+import Search from "../../components/search/Search"
+import { CircularProgress } from "@material-ui/core"
+import { useLocation, useHistory } from "react-router-dom"
 
 const AccountList = () => {
-  let history = useHistory();
-  const [currentPage, setCurrentPage] = useState(1);
-  let [users, setUsers] = useState([]);
-  const [label, setLabel] = useState('');
-  const [status, setStatus] = useState('');
-  const [keyword, setKey] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  let query = new URLSearchParams(useLocation().search);
+  let history = useHistory()
+  let query = new URLSearchParams(useLocation().search)
+  const pramKey = query.get("keyword")
+  const pramLabel = query.get("label")
+  const pramStatus = query.get("status")
+
+  const [users, setUsers] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [label, setLabel] = useState(pramLabel || "")
+  const [status, setStatus] = useState(pramStatus || "")
+  const [keyword, setKey] = useState(pramKey || "")
+  const [isLoading, setIsLoading] = useState(false)
+  const [totalPage, setTotalPage] = useState(0)
+  const [pageSize, setPageSize] = useState(30)
+  const [isDisableNext, setIsDisableNext] = useState(false)
+  const [maxPage, setMaxPage] = useState(0)
 
   function handleNextPage() {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage(currentPage + 1)
   }
 
   function handlePreviousPage() {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setCurrentPage(currentPage - 1)
     }
   }
 
   const handleFetchUsers = useCallback(async () => {
-    setIsLoading(true);
+    setIsLoading(true)
+
+    query.set("keyword", keyword)
+    query.set("label", label)
+    query.set("status", status)
+    history.push({
+      search: query.toString(),
+    })
 
     try {
       const { data } = await authFetch.get(
-        `social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=30&class=${label}&status=${status}&Keyword=${keyword}`
-      );
+        `social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=${pageSize}&class=${label}&status=${status}&Keyword=${keyword}`
+      )
       if (data) {
-        setIsLoading(false);
-        setUsers(data.data?.data);
+        setIsLoading(false)
+        setUsers(data.data?.data)
+        setTotalPage(data.data.total)
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  }, [currentPage, keyword, label, status]);
+  }, [currentPage, keyword, label, status])
 
   useEffect(() => {
-    const pram = `?${keyword ? `keyword=${keyword}` : ''}${
-      label ? `&label=${label}` : ''
-    }${status ? `&status=${status}` : ''}`;
-
-    if (history.location.search !== pram) {
-      history.push({
-        search: pram,
-      });
-    }
-
-    const pramKey = query.get('keyword');
-    const pramLabel = query.get('label');
-    const pramStatus = query.get('status');
-
-    setKey(pramKey || '');
-    setLabel(pramLabel || '');
-    setStatus(pramStatus || '');
-  }, [history]);
-
-  // useEffect(() => {
-  //   const pram = `?${keyword ? `keyword=${keyword}` : ''}${
-  //     label ? `&label=${label}` : ''
-  //   }${status ? `&status=${status}` : ''}`;
-
-  //   if (history.location.search !== pram) {
-  //     history.push({
-  //       search: pram,
-  //     });
-  //   }
-
-  //   getUsers();
-  // }, [currentPage, keyword, label, status]);
+    setKey(pramKey || "")
+    setLabel(pramLabel || "")
+    setStatus(pramStatus || "")
+  }, [history])
 
   useEffect(() => {
-    const pram = `?${keyword ? `keyword=${keyword}` : ''}${
-      label ? `&label=${label}` : ''
-    }${status ? `&status=${status}` : ''}`;
+    handleFetchUsers()
+  }, [handleFetchUsers])
 
-    if (history.location.search !== pram) {
-      history.push({
-        search: pram,
-      });
+  useEffect(() => {
+    const n = Math.round(totalPage / pageSize)
+    if (totalPage % pageSize === 0) setMaxPage(n)
+    if (totalPage % pageSize !== 0) setMaxPage(n + 1)
+    if (currentPage * pageSize >= totalPage) {
+      return setIsDisableNext(true)
     }
-
-    handleFetchUsers();
-  }, [handleFetchUsers]);
-
-  // async function getUsers() {
-  //   setIsLoading(true);
-  //   try {
-  //     const { data } = await authFetch.get(
-  //       `social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=30&class=${label}&status=${status}&Keyword=${keyword}`
-  //     );
-  //     if (data) {
-  //       setIsLoading(false);
-  //       setUsers(data.data?.data);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+    return setIsDisableNext(false)
+  }, [totalPage, currentPage, pageSize])
 
   return (
     <div className='account-list'>
@@ -117,6 +90,7 @@ const AccountList = () => {
           setLabel={(e) => setLabel(e)}
           setKey={(e) => setKey(e)}
           setStatus={(e) => setStatus(e)}
+          setCurrentPage={setCurrentPage}
         />
       </div>
       <div className='filter-container'>
@@ -127,15 +101,18 @@ const AccountList = () => {
           setLabel={(e) => setLabel(e)}
           setKey={(e) => setKey(e)}
           setStatus={(e) => setStatus(e)}
+          setCurrentPage={setCurrentPage}
         />
       </div>
       <div className='pagination-container'>
-        {users?.length && (
+        {users && (
           <Pagination
             currentPage={currentPage}
             onNextPage={handleNextPage}
             onPreviousPage={handlePreviousPage}
             onSetPage={(number) => setCurrentPage(number)}
+            isDisableNext={isDisableNext}
+            maxPage={maxPage}
           />
         )}
       </div>
@@ -149,7 +126,7 @@ const AccountList = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AccountList;
+export default AccountList

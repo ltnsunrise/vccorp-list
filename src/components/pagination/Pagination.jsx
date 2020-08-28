@@ -1,15 +1,24 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./Pagination.scss"
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { useCurrentWitdh } from "../../shared/custom-hooks/useCurrentWidth"
 
-const Pagination = ({ currentPage, onNextPage, onPreviousPage, onSetPage }) => {
+const Pagination = ({
+  currentPage,
+  onNextPage,
+  onPreviousPage,
+  onSetPage,
+  isDisableNext,
+  maxPage,
+}) => {
   let width = useCurrentWitdh()
   const [page, setPage] = useState(currentPage)
   const handleNextPage = () => {
-    setPage(page + 1)
-    onNextPage()
+    if (!isDisableNext) {
+      setPage(Number(page) + 1)
+      onNextPage()
+    }
   }
   const handlePreviousPage = () => {
     setPage(page - 1)
@@ -17,10 +26,16 @@ const Pagination = ({ currentPage, onNextPage, onPreviousPage, onSetPage }) => {
   }
 
   const handleBlur = (e) => {
-    if (e.target.value) {
-      onSetPage(e.target.value)
-    } else {
-      setPage(currentPage)
+    if (e.target.value > maxPage) setPage(currentPage)
+  }
+
+  useEffect(() => {
+    setPage(currentPage)
+  }, [currentPage])
+
+  function handleSetPage() {
+    if (page <= maxPage) {
+      onSetPage(page)
     }
   }
 
@@ -33,7 +48,7 @@ const Pagination = ({ currentPage, onNextPage, onPreviousPage, onSetPage }) => {
         <ArrowBackIosIcon /> {width < 576 && `Trang trước`}
       </button>
       <div className='number'>
-        <form onSubmit={() => onSetPage(page)}>
+        <form onSubmit={handleSetPage}>
           <input
             type='number'
             value={page}
@@ -42,7 +57,10 @@ const Pagination = ({ currentPage, onNextPage, onPreviousPage, onSetPage }) => {
           />
         </form>
       </div>
-      <button className='btn btn-right' onClick={handleNextPage}>
+      <button
+        disabled={isDisableNext}
+        className='btn btn-right'
+        onClick={handleNextPage}>
         {width < 576 && `Trang sau`} <ArrowForwardIosIcon />
       </button>
     </div>
