@@ -1,58 +1,111 @@
-import React, { useState, useEffect } from "react"
-import Filter from "../../components/filter/Filter"
-import Pagination from "../../components/pagination/Pagination"
-import List from "../../components/list/List"
-import "./AccountList.scss"
-import { authFetch } from "../../shared/authFetch"
-import Search from "../../components/search/Search"
-import { CircularProgress } from "@material-ui/core"
-import { useLocation, useHistory } from "react-router-dom"
+import React, { useState, useEffect, useCallback } from 'react';
+import Filter from '../../components/filter/Filter';
+import Pagination from '../../components/pagination/Pagination';
+import List from '../../components/list/List';
+import './AccountList.scss';
+import { authFetch } from '../../shared/authFetch';
+import Search from '../../components/search/Search';
+import { CircularProgress } from '@material-ui/core';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const AccountList = () => {
-  let history = useHistory()
-  const [currentPage, setCurrentPage] = useState(1)
-  let [users, setUsers] = useState([])
-  const [label, setLabel] = useState("")
-  const [status, setStatus] = useState("")
-  const [keyword, setKey] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  let query = new URLSearchParams(useLocation().search)
+  let history = useHistory();
+  const [currentPage, setCurrentPage] = useState(1);
+  let [users, setUsers] = useState([]);
+  const [label, setLabel] = useState('');
+  const [status, setStatus] = useState('');
+  const [keyword, setKey] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  let query = new URLSearchParams(useLocation().search);
 
   function handleNextPage() {
-    setCurrentPage(currentPage + 1)
+    setCurrentPage(currentPage + 1);
   }
 
   function handlePreviousPage() {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
+      setCurrentPage(currentPage - 1);
     }
   }
 
-  useEffect(() => {}, [query])
+  const handleFetchUsers = useCallback(async () => {
+    setIsLoading(true);
 
-  useEffect(() => {
-    history.push({
-      search: `?${keyword && `keyword=${keyword}`}${
-        label && `&label=${label}`
-      }${status && `&status=${status}`}`,
-    })
-    getUsers()
-  }, [currentPage, keyword, label, status])
-
-  async function getUsers() {
-    setIsLoading(true)
     try {
       const { data } = await authFetch.get(
         `social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=30&class=${label}&status=${status}&Keyword=${keyword}`
-      )
+      );
       if (data) {
-        setIsLoading(false)
-        setUsers(data.data?.data)
+        setIsLoading(false);
+        setUsers(data.data?.data);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  }, [currentPage, keyword, label, status]);
+
+  useEffect(() => {
+    const pram = `?${keyword ? `keyword=${keyword}` : ''}${
+      label ? `&label=${label}` : ''
+    }${status ? `&status=${status}` : ''}`;
+
+    if (history.location.search !== pram) {
+      history.push({
+        search: pram,
+      });
+    }
+
+    const pramKey = query.get('keyword');
+    const pramLabel = query.get('label');
+    const pramStatus = query.get('status');
+
+    setKey(pramKey || '');
+    setLabel(pramLabel || '');
+    setStatus(pramStatus || '');
+  }, [history]);
+
+  // useEffect(() => {
+  //   const pram = `?${keyword ? `keyword=${keyword}` : ''}${
+  //     label ? `&label=${label}` : ''
+  //   }${status ? `&status=${status}` : ''}`;
+
+  //   if (history.location.search !== pram) {
+  //     history.push({
+  //       search: pram,
+  //     });
+  //   }
+
+  //   getUsers();
+  // }, [currentPage, keyword, label, status]);
+
+  useEffect(() => {
+    const pram = `?${keyword ? `keyword=${keyword}` : ''}${
+      label ? `&label=${label}` : ''
+    }${status ? `&status=${status}` : ''}`;
+
+    if (history.location.search !== pram) {
+      history.push({
+        search: pram,
+      });
+    }
+
+    handleFetchUsers();
+  }, [handleFetchUsers]);
+
+  // async function getUsers() {
+  //   setIsLoading(true);
+  //   try {
+  //     const { data } = await authFetch.get(
+  //       `social/api/system/list_page_manager?PageIndex=${currentPage}&PageSize=30&class=${label}&status=${status}&Keyword=${keyword}`
+  //     );
+  //     if (data) {
+  //       setIsLoading(false);
+  //       setUsers(data.data?.data);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <div className='account-list'>
@@ -96,7 +149,7 @@ const AccountList = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AccountList
+export default AccountList;
