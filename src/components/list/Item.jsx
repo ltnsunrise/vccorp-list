@@ -13,6 +13,7 @@ import {
 } from "../../shared/enums/accountTypeEnum"
 import { accountClasses } from "../../shared/enums/accountLabelEnum"
 import { authFetch } from "../../shared/authFetch"
+import { useToasts } from "react-toast-notifications"
 
 const Item = ({ user }) => {
   const [label, setLabel] = useState(user.class)
@@ -21,6 +22,7 @@ const Item = ({ user }) => {
   const loadedLabel = useRef(false)
   const loadedType = useRef(false)
   let width = useCurrentWitdh()
+  const { addToast } = useToasts()
 
   useEffect(() => {
     if (width > 576) setExpanded(false)
@@ -44,9 +46,9 @@ const Item = ({ user }) => {
 
   function getStatus(status) {
     if (status) {
-      return "Đang hoạt động"
+      return "Hoạt động"
     } else {
-      return "Đang ngoại tuyến"
+      return "Không hoạt động"
     }
   }
 
@@ -59,8 +61,12 @@ const Item = ({ user }) => {
         `g/api/system/page/update_class`,
         formData
       )
+      addToast("Saved Successfully", {
+        appearance: "success",
+        autoDismiss: true,
+      })
     } catch (error) {
-      console.error(error)
+      addToast("Error", { appearance: "error", autoDismiss: true })
     }
   }
 
@@ -74,8 +80,12 @@ const Item = ({ user }) => {
         `g/api/system/page/update_class_type`,
         formData
       )
+      addToast("Saved Successfully", {
+        appearance: "success",
+        autoDismiss: true,
+      })
     } catch (error) {
-      console.error(error)
+      addToast("Error", { appearance: "error", autoDismiss: true })
     }
   }
 

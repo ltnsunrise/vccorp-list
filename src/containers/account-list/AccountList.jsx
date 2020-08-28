@@ -7,6 +7,7 @@ import { authFetch } from "../../shared/authFetch"
 import Search from "../../components/search/Search"
 import { CircularProgress } from "@material-ui/core"
 import { useLocation, useHistory } from "react-router-dom"
+import { useToasts } from "react-toast-notifications"
 
 const AccountList = () => {
   let history = useHistory()
@@ -25,6 +26,7 @@ const AccountList = () => {
   const [pageSize, setPageSize] = useState(30)
   const [isDisableNext, setIsDisableNext] = useState(false)
   const [maxPage, setMaxPage] = useState(0)
+  const { addToast } = useToasts()
 
   function handleNextPage() {
     setCurrentPage(currentPage + 1)
@@ -54,9 +56,14 @@ const AccountList = () => {
         setIsLoading(false)
         setUsers(data.data?.data)
         setTotalPage(data.data.total)
+
+        addToast("Successfully", {
+          appearance: "success",
+          autoDismiss: true,
+        })
       }
     } catch (error) {
-      console.error(error)
+      addToast("Error", { appearance: "error", autoDismiss: true })
     }
   }, [currentPage, keyword, label, status])
 
