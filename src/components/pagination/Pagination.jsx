@@ -40,10 +40,6 @@ const Pagination = ({
     }
   }
 
-  // if (users) {
-  //   return <div></div>
-  // }
-
   return (
     <div className='pagination'>
       <button

@@ -14,7 +14,7 @@
 
 .search-container {
   grid-row: 1/2;
-  grid-column: 1/4;
+  grid-column: 1/2;
 
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
 }
@@ -22,7 +22,6 @@
 .filter-container {
   grid-row: 2/3;
   grid-column: 1/2;
-
   background: #f0f6fe;
 }
 
@@ -32,6 +31,13 @@
 }
 
 @media only screen and (min-width: $mobile_bp) {
+  .account-list {
+    grid-template-columns: 1fr 1fr 150px;
+  }
+  .search-container {
+    grid-row: 1/2;
+    grid-column: 1/4;
+  }
   .pagination-container {
     grid-row: 2/3;
     grid-column: 3/4;

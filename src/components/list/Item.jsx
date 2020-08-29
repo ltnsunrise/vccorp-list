@@ -172,12 +172,16 @@ const Item = ({ user }) => {
         </td>
         {width > 576 && (
           <>
-            <td align='right'>{displayLabel()}</td>
-            <td align='right'>{displayType()}</td>
+            <td width='200' align='right'>
+              {displayLabel()}
+            </td>
+            <td width='200' align='right'>
+              {displayType()}
+            </td>
           </>
         )}
 
-        <td align='center'>
+        <td width='100' align='center'>
           <MoreHorizIcon className='icon icon-edit' />
           <ExpandMoreIcon className='icon icon-expand' />
         </td>

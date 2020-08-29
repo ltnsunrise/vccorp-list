@@ -3,39 +3,35 @@
 .filter {
   display: flex;
   height: 100%;
-  overflow: auto;
-  white-space: nowrap;
-  max-width: 400px;
-  justify-self: center;
+  white-space: wrap;
+  max-width: 100%;
+  justify-content: start;
   align-items: center;
-  margin: 15px 20px;
   color: #2d3748;
   letter-spacing: 0.4px;
-  // padding: 15px 20px;
   font-size: 12px;
+
   &__item {
     display: flex;
     justify-content: center;
     align-items: center;
+    align-self: center;
     flex: 0 0 auto;
-    margin-left: 16px;
+    margin-right: 16px;
     border: 1px solid #a0aec0;
     padding: 1px 2px 1px 12px;
     border-radius: 64px;
     background-color: #cbd5e0;
     font-weight: normal;
+    position: relative;
+    // top: 4px;
   }
 }
 
-@media only screen and (min-width: $mobile-bp) {
-  .filter {
-    max-width: 100%;
-    justify-self: start;
-  }
-}
-
-.clickable {
-  cursor: pointer;
+.scrollable-x {
+  display: flex;
+  overflow-x: overlay;
+  height: 58px;
 }
 
 .icon-remove {
@@ -45,6 +41,10 @@
   }
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .icon-clear {
   padding: 6px;
   border-radius: 50%;
@@ -52,6 +52,7 @@
   border: 2px solid #a0aec0;
   width: 28px;
   height: 28px;
+  margin: 0 16px;
 
   display: flex;
   align-items: center;
@@ -61,4 +62,7 @@
     width: 16px;
     height: 16px;
   }
+}
+
+@media only screen and (min-width: $mobile-bp) {
 }

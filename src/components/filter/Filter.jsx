@@ -38,50 +38,52 @@ const Filter = ({
         </div>
       )}
 
-      {keyword && (
-        <div className='filter__item'>
-          <strong>Từ khóa:&nbsp;</strong> {keyword}{" "}
-          <CancelIcon
-            className='clickable icon-remove'
-            onClick={() => {
-              setKey("")
-              setCurrentPage(1)
-            }}
-          />
-        </div>
-      )}
+      <div className='scrollable-x'>
+        {keyword && (
+          <div className='filter__item'>
+            <strong>Từ khóa:&nbsp;</strong> {keyword}{" "}
+            <CancelIcon
+              className='clickable icon-remove'
+              onClick={() => {
+                setKey("")
+                setCurrentPage(1)
+              }}
+            />
+          </div>
+        )}
 
-      {label && (
-        <div className='filter__item'>
-          <strong>Nhãn:&nbsp;</strong>{" "}
-          {accountClasses.map((item) => {
-            if (item.value === Number(label)) return item.name
-          })}
-          <CancelIcon
-            className='clickable icon-remove'
-            onClick={() => {
-              setLabel("")
-              setCurrentPage(1)
-            }}
-          />
-        </div>
-      )}
+        {label && (
+          <div className='filter__item'>
+            <strong>Nhãn:&nbsp;</strong>{" "}
+            {accountClasses.map((item) => {
+              if (item.value === Number(label)) return item.name
+            })}
+            <CancelIcon
+              className='clickable icon-remove'
+              onClick={() => {
+                setLabel("")
+                setCurrentPage(1)
+              }}
+            />
+          </div>
+        )}
 
-      {toggleStatus && (
-        <div className='filter__item'>
-          <strong>Trạng thái:&nbsp;</strong>{" "}
-          {Number(status) === 1 && "Hoạt động"}
-          {Number(status) === 0 && "Không hoạt động"}{" "}
-          <CancelIcon
-            className='clickable icon-remove'
-            onClick={() => {
-              setStatus("")
-              setToggleStatus(false)
-              setCurrentPage(1)
-            }}
-          />
-        </div>
-      )}
+        {toggleStatus && (
+          <div className='filter__item'>
+            <strong>Trạng thái:&nbsp;</strong>{" "}
+            {Number(status) === 1 && "Hoạt động"}
+            {Number(status) === 0 && "Không hoạt động"}{" "}
+            <CancelIcon
+              className='clickable icon-remove'
+              onClick={() => {
+                setStatus("")
+                setToggleStatus(false)
+                setCurrentPage(1)
+              }}
+            />
+          </div>
+        )}
+      </div>
     </div>
   )
 }

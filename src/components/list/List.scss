@@ -3,6 +3,8 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  position: relative;
+  height: 100%;
 
   td {
     border: 1px solid #e2e8f0;
@@ -36,6 +38,19 @@
   background-color: #edf2f7;
 }
 
-.scrollable-element {
-  scrollbar-width: thin;
+thead,
+tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+tbody {
+  table-layout: fixed;
+  overflow-y: overlay;
+  position: absolute;
+  top: 68px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 }
