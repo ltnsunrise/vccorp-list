@@ -67,6 +67,7 @@ const Item = ({ user }) => {
       // })
     } catch (error) {
       // addToast("Error", { appearance: "error", autoDismiss: true })
+      console.log(error)
     }
   }
 
@@ -86,6 +87,7 @@ const Item = ({ user }) => {
       // })
     } catch (error) {
       // addToast("Error", { appearance: "error", autoDismiss: true })
+      console.log(error)
     }
   }
 

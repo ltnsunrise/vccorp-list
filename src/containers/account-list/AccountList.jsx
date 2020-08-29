@@ -64,6 +64,7 @@ const AccountList = () => {
       }
     } catch (error) {
       // addToast("Error", { appearance: "error", autoDismiss: true })
+      console.log(error)
     }
   }, [currentPage, keyword, label, status])
 
