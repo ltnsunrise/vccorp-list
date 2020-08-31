@@ -57,6 +57,7 @@ const Filter = ({
             <strong>Nhãn:&nbsp;</strong>{" "}
             {accountClasses.map((item) => {
               if (item.value === Number(label)) return item.name
+              return ""
             })}
             <CancelIcon
               className='clickable icon-remove'

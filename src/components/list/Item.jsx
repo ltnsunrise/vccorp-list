@@ -17,7 +17,7 @@ import { authFetch } from "../../shared/authFetch"
 
 const Item = ({ user }) => {
   const [label, setLabel] = useState(user.class)
-  const [type, setType] = useState(user.classType || null)
+  const [type, setType] = useState(user.classType || "")
   const [expanded, setExpanded] = useState(false)
   const loadedLabel = useRef(false)
   const loadedType = useRef(false)
@@ -122,8 +122,15 @@ const Item = ({ user }) => {
             <Select
               autoWidth={true}
               value={type}
-              onChange={(e) => setType(e.target.value)}
-              IconComponent={<ExpandMoreIcon className='icon' />}>
+              onChange={(e) => {
+                setType(e.target.value)
+              }}
+              displayEmpty
+              IconComponent={ExpandMoreIcon}>
+              <MenuItem disabled value=''>
+                <span className='disabled-item'>Chưa phân loại</span>
+              </MenuItem>
+
               {accountCredibility.map((item) => (
                 <MenuItem key={item.value} value={item.value}>
                   {item.name}
@@ -137,8 +144,15 @@ const Item = ({ user }) => {
             <Select
               autoWidth={true}
               value={type}
-              onChange={(e) => setType(e.target.value)}
+              onChange={(e) => {
+                setType(e.target.value)
+              }}
+              displayEmpty
               IconComponent={ExpandMoreIcon}>
+              <MenuItem disabled value=''>
+                <span className='disabled-item'>Chưa phân loại</span>
+              </MenuItem>
+
               {accountClassLabel.map((item) => (
                 <MenuItem key={item.value} value={item.value}>
                   {item.name}

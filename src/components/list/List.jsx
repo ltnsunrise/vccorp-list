@@ -25,7 +25,7 @@ const List = ({ users }) => {
         </thead>
 
         <tbody>
-          {users && users.map((user) => <Item key={user?.id} user={user} />)}{" "}
+          {users && users.map((user) => <Item key={user?.id} user={user} />)}
         </tbody>
       </table>
     </>
