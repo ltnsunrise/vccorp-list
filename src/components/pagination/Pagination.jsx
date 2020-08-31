@@ -17,7 +17,7 @@ const Pagination = ({
   const [page, setPage] = useState(currentPage)
   const handleNextPage = () => {
     if (!isDisableNext) {
-      setPage(Number(page) + 1)
+      setPage(page + 1)
       onNextPage()
     }
   }
@@ -52,8 +52,12 @@ const Pagination = ({
         <form onSubmit={handleSetPage}>
           <input
             type='number'
+            min={1}
             value={page}
-            onChange={(e) => setPage(e.target.value)}
+            onChange={(e) => {
+              let value = e.target.value
+              setPage(parseInt(value, 10))
+            }}
             onBlur={handleBlur}
           />
         </form>
