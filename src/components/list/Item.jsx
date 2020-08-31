@@ -16,7 +16,9 @@ import { authFetch } from "../../shared/authFetch"
 // import { useToasts } from "react-toast-notifications"
 
 const Item = ({ user }) => {
-  const [label, setLabel] = useState(user.class)
+  const accClass = accountClasses.filter((item) => item.value === user.class)
+
+  const [label, setLabel] = useState(accClass.length === 0 ? 0 : user.class)
   const [type, setType] = useState(user.classType || "")
   const [expanded, setExpanded] = useState(false)
   const loadedLabel = useRef(false)
