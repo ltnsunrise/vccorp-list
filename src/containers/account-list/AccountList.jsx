@@ -6,14 +6,12 @@ import "./AccountList.scss"
 import { authFetch } from "../../shared/authFetch"
 import Search from "../../components/search/Search"
 import { CircularProgress } from "@material-ui/core"
-import { useLocation, useHistory } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 // import { useToasts } from "react-toast-notifications"
 import { withRouter } from "react-router"
 
-const AccountList = ({ location }) => {
-  let history = useHistory()
+const AccountList = ({ location, history }) => {
   let query = new URLSearchParams(useLocation().search)
-
   const pramKey = query.get("keyword")
   const pramLabel = query.get("label")
   const pramStatus = query.get("status")
