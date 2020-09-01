@@ -8,10 +8,12 @@ import Search from "../../components/search/Search"
 import { CircularProgress } from "@material-ui/core"
 import { useLocation, useHistory } from "react-router-dom"
 // import { useToasts } from "react-toast-notifications"
+import { withRouter } from "react-router"
 
-const AccountList = () => {
+const AccountList = ({ location }) => {
   let history = useHistory()
   let query = new URLSearchParams(useLocation().search)
+
   const pramKey = query.get("keyword")
   const pramLabel = query.get("label")
   const pramStatus = query.get("status")
@@ -67,12 +69,17 @@ const AccountList = () => {
       // addToast("Error", { appearance: "error", autoDismiss: true })
       console.log(error)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, keyword, label, status])
 
   useEffect(() => {
     handleFetchUsers()
   }, [handleFetchUsers])
+
+  useEffect(() => {
+    setStatus(query.get("status"))
+    setKey(query.get("keyword"))
+    setLabel(query.get("label"))
+  }, [location])
 
   useEffect(() => {
     const n = Math.round(totalPage / pageSize)
@@ -134,4 +141,4 @@ const AccountList = () => {
   )
 }
 
-export default AccountList
+export default withRouter(AccountList)
