@@ -6,6 +6,8 @@
   position: relative;
   height: 100%;
 
+  @include scrollbar;
+
   td {
     border: 1px solid #e2e8f0;
     height: 68px;
