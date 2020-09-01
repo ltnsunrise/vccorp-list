@@ -68,12 +68,21 @@
   width: 100%;
 
   .row {
-    padding: 1em 0 1em 2.5em;
+    padding: 11.5px 0 11.5px 72px;
+    color: #2d3748;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #edf2f7;
+    }
 
     label {
       display: inline-block;
       min-width: 4em;
       margin-right: 1em;
+    }
+
+    .MuiInputBase-input {
+      color: #2d3748;
     }
   }
 }
