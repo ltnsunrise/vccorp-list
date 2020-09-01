@@ -7,7 +7,7 @@ import { authFetch } from "../../shared/authFetch"
 import Search from "../../components/search/Search"
 import { CircularProgress } from "@material-ui/core"
 import { useLocation, useHistory } from "react-router-dom"
-import { useToasts } from "react-toast-notifications"
+// import { useToasts } from "react-toast-notifications"
 
 const AccountList = () => {
   let history = useHistory()
@@ -23,6 +23,7 @@ const AccountList = () => {
   const [keyword, setKey] = useState(pramKey || "")
   const [isLoading, setIsLoading] = useState(false)
   const [totalPage, setTotalPage] = useState(0)
+  // eslint-disable-next-line no-unused-vars
   const [pageSize, setPageSize] = useState(30)
   const [isDisableNext, setIsDisableNext] = useState(false)
   const [maxPage, setMaxPage] = useState(0)
@@ -66,13 +67,8 @@ const AccountList = () => {
       // addToast("Error", { appearance: "error", autoDismiss: true })
       console.log(error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, keyword, label, status])
-
-  useEffect(() => {
-    setKey(pramKey || "")
-    setLabel(pramLabel || "")
-    setStatus(pramStatus || "")
-  }, [history])
 
   useEffect(() => {
     handleFetchUsers()

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, memo } from "react"
 import "./Item.scss"
 
 import { Tooltip, Select, MenuItem } from "@material-ui/core"
@@ -36,6 +36,7 @@ const Item = ({ user }) => {
     } else {
       loadedLabel.current = true
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [label])
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const Item = ({ user }) => {
     } else {
       loadedType.current = true
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type])
 
   function getStatus(status) {
@@ -59,10 +61,8 @@ const Item = ({ user }) => {
     formData.set("pageId", user.id)
     formData.set("class", label)
     try {
-      const { data } = await authFetch.post(
-        `g/api/system/page/update_class`,
-        formData
-      )
+      // const { data } =
+      await authFetch.post(`g/api/system/page/update_class`, formData)
       // addToast("Saved Successfully", {
       //   appearance: "success",
       //   autoDismiss: true,
@@ -79,10 +79,8 @@ const Item = ({ user }) => {
     formData.set("classType", type)
 
     try {
-      const { data } = await authFetch.post(
-        `g/api/system/page/update_class_type`,
-        formData
-      )
+      // const { data } =
+      await authFetch.post(`g/api/system/page/update_class_type`, formData)
       // addToast("Saved Successfully", {
       //   appearance: "success",
       //   autoDismiss: true,
@@ -223,4 +221,4 @@ const Item = ({ user }) => {
   )
 }
 
-export default Item
+export default memo(Item)

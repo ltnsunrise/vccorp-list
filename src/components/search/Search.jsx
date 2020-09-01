@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef } from "react"
 import "./Search.scss"
 import { accountClasses } from "../../shared/enums/accountLabelEnum"
 import SearchIcon from "@material-ui/icons/Search"

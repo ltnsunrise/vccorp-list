@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 
-const Login = ({}) => {
+const Login = () => {
   let history = useHistory()
   const [mobile, setMobile] = useState("")
 

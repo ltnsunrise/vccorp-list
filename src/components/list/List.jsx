@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import "./List.scss"
 
 import Item from "./Item"
@@ -32,4 +32,4 @@ const List = ({ users }) => {
   )
 }
 
-export default List
+export default memo(List)
