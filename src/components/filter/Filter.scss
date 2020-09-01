@@ -32,6 +32,8 @@
   display: flex;
   overflow-x: overlay;
   height: 58px;
+
+  width: calc(100vw - 75px);
 }
 
 .icon-remove {
