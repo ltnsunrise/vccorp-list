@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef, memo } from "react"
+import React, { useState, useEffect, memo } from "react"
 import "./Item.scss"
 
-import { Tooltip, Select, MenuItem } from "@material-ui/core"
+import { Tooltip } from "@material-ui/core"
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import Collapse from "@material-ui/core/Collapse"
@@ -13,40 +13,22 @@ import {
 } from "../../shared/enums/accountTypeEnum"
 import { accountClasses } from "../../shared/enums/accountLabelEnum"
 import { authFetch } from "../../shared/authFetch"
-// import { useToasts } from "react-toast-notifications"
+import Modal from "../common/modal/Modal"
 
 const Item = ({ user }) => {
   const isOther = accountClasses.some((item) => item.value === user.class)
   const [label, setLabel] = useState(isOther ? user.class : 0)
 
+  const [showLabel, setShowLabel] = useState(false)
+  const [showType, setShowType] = useState(false)
+
   const [type, setType] = useState(user.classType || "")
   const [expanded, setExpanded] = useState(false)
-  const loadedLabel = useRef(false)
-  const loadedType = useRef(false)
   let width = useCurrentWitdh()
-  // const { addToast } = useToasts()
 
   useEffect(() => {
     if (width > 576) setExpanded(false)
   }, [width])
-
-  useEffect(() => {
-    if (loadedLabel.current) {
-      handleChangeLabel()
-    } else {
-      loadedLabel.current = true
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [label])
-
-  useEffect(() => {
-    if (loadedType.current) {
-      handleChangeType()
-    } else {
-      loadedType.current = true
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type])
 
   function getStatus(status) {
     if (status) {
@@ -61,14 +43,9 @@ const Item = ({ user }) => {
     formData.set("pageId", user.id)
     formData.set("class", label)
     try {
-      // const { data } =
       await authFetch.post(`g/api/system/page/update_class`, formData)
-      // addToast("Saved Successfully", {
-      //   appearance: "success",
-      //   autoDismiss: true,
-      // })
+      setShowLabel(false)
     } catch (error) {
-      // addToast("Error", { appearance: "error", autoDismiss: true })
       console.log(error)
     }
   }
@@ -79,14 +56,9 @@ const Item = ({ user }) => {
     formData.set("classType", type)
 
     try {
-      // const { data } =
       await authFetch.post(`g/api/system/page/update_class_type`, formData)
-      // addToast("Saved Successfully", {
-      //   appearance: "success",
-      //   autoDismiss: true,
-      // })
+      setShowType(false)
     } catch (error) {
-      // addToast("Error", { appearance: "error", autoDismiss: true })
       console.log(error)
     }
   }
@@ -99,18 +71,41 @@ const Item = ({ user }) => {
 
   function displayLabel() {
     return (
-      <div className='select-container'>
-        <Select
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
-          IconComponent={ExpandMoreIcon}>
-          {accountClasses.map((item) => (
-            <MenuItem key={item.value} value={item.value}>
-              {item.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </div>
+      <>
+        <Modal
+          title='Nhãn'
+          submit={handleChangeLabel}
+          isShowing={showLabel}
+          hide={() => setShowLabel(!showLabel)}>
+          <div onChange={(e) => setLabel(e.target.value)}>
+            {accountClasses.map((item) => (
+              <div key={item.value}>
+                <label>
+                  <input
+                    type='radio'
+                    name='label'
+                    value={item.value}
+                    defaultChecked={user.class === item.value}
+                  />
+                  {item.name}
+                </label>
+              </div>
+            ))}
+          </div>
+        </Modal>
+        <div
+          className='select-container'
+          onClick={() => setShowLabel(!showLabel)}>
+          {accountClasses.map((item) => {
+            if (item.value === user.class) {
+              return item.name
+            }
+          })}
+          {accountClasses.filter((item) => item.value === user.class).length ===
+            0 && "Khác"}{" "}
+          <ExpandMoreIcon />
+        </div>
+      </>
     )
   }
 
@@ -118,47 +113,74 @@ const Item = ({ user }) => {
     return (
       <>
         {label === 1 && (
-          <div className='select-container'>
-            <Select
-              autoWidth={true}
-              value={type}
-              onChange={(e) => {
-                setType(e.target.value)
-              }}
-              displayEmpty
-              IconComponent={ExpandMoreIcon}>
-              <MenuItem disabled value=''>
-                <span className='disabled-item'>Chưa phân loại</span>
-              </MenuItem>
-
+          <>
+            <Modal
+              title='Loại'
+              submit={handleChangeType}
+              isShowing={showType}
+              hide={() => setShowType(!showType)}>
               {accountCredibility.map((item) => (
-                <MenuItem key={item.value} value={item.value}>
-                  {item.name}
-                </MenuItem>
+                <div key={item.value}>
+                  <label>
+                    <input
+                      type='radio'
+                      name='label'
+                      defaultChecked={user.classType === item.value}
+                      onChange={(e) => setType(e.target.value)}
+                    />
+                    {item.name}
+                  </label>
+                </div>
               ))}
-            </Select>
-          </div>
+            </Modal>
+            <div
+              className='select-container'
+              onClick={() => setShowType(!showType)}>
+              {accountCredibility.map((item) => {
+                if (item.value === user.classType) {
+                  return item.name
+                }
+              })}{" "}
+              {accountClasses.filter((item) => item.value === user.classType)
+                .length === 0 && "Chưa phân loại"}{" "}
+              <ExpandMoreIcon />
+            </div>
+          </>
         )}
         {label === 3 && (
-          <div className='select-container'>
-            <Select
-              autoWidth={true}
-              value={type}
-              onChange={(e) => {
-                setType(e.target.value)
-              }}
-              displayEmpty
-              IconComponent={ExpandMoreIcon}>
-              <MenuItem disabled value=''>
-                <span className='disabled-item'>Chưa phân loại</span>
-              </MenuItem>
-
+          <div>
+            <Modal
+              title='Loại'
+              submit={handleChangeType}
+              isShowing={showType}
+              hide={() => setShowType(!showType)}>
               {accountClassLabel.map((item) => (
-                <MenuItem key={item.value} value={item.value}>
-                  {item.name}
-                </MenuItem>
+                <div key={item.value}>
+                  <label>
+                    <input
+                      type='radio'
+                      name='label'
+                      value={item.value}
+                      defaultChecked={user.classType === item.value}
+                      onChange={(e) => setType(e.target.value)}
+                    />
+                    {item.name}
+                  </label>
+                </div>
               ))}
-            </Select>
+            </Modal>
+            <div
+              className='select-container'
+              onClick={() => setShowType(!showType)}>
+              {accountClassLabel.map((item) => {
+                if (item.value === user.classType) {
+                  return item.name
+                }
+              })}{" "}
+              {accountClassLabel.filter((item) => item.value === user.classType)
+                .length === 0 && "Chưa phân loại"}{" "}
+              <ExpandMoreIcon />
+            </div>
           </div>
         )}
       </>

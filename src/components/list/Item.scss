@@ -41,27 +41,6 @@
   }
 }
 
-.MuiInput-underline {
-  &:before {
-    display: none;
-  }
-
-  &:after {
-    display: none;
-  }
-}
-
-.MuiSelect-select {
-  &:focus {
-    background-color: transparent !important;
-  }
-
-  &.MuiSelect-select {
-    padding-right: 3em !important;
-    font-size: 14px;
-  }
-}
-
 .expand {
   display: flex;
   flex-direction: column;
@@ -70,19 +49,11 @@
   .row {
     padding: 11.5px 0 11.5px 72px;
     color: #2d3748;
+    display: flex;
+    align-items: center;
 
     &:not(:last-child) {
       border-bottom: 1px solid #edf2f7;
-    }
-
-    label {
-      display: inline-block;
-      min-width: 4em;
-      margin-right: 1em;
-    }
-
-    .MuiInputBase-input {
-      color: #2d3748;
     }
   }
 }
@@ -94,8 +65,9 @@
 }
 
 .select-container {
-  padding-right: 25px;
-  display: inline-block;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .icon-expand {
