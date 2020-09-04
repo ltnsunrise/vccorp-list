@@ -1,4 +1,4 @@
-@import "../../variable.scss";
+@import '../../variable.scss';
 
 .search-box {
   border: 1px solid #e2e8f0;
@@ -89,6 +89,8 @@
   input {
     padding: 0.5em 1em;
     margin-bottom: 1em;
+    border-radius: 4px;
+    border: 1px solid #82868e;
 
     &:focus {
       outline: none;
@@ -130,4 +132,13 @@
       visibility: visible;
     }
   }
+}
+
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
 }

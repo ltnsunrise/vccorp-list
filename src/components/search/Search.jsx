@@ -1,20 +1,20 @@
-import React, { useState, useRef } from "react"
-import "./Search.scss"
-import { accountClasses } from "../../shared/enums/accountLabelEnum"
-import SearchIcon from "@material-ui/icons/Search"
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown"
-import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp"
-import Autocomplete from "@material-ui/lab/Autocomplete"
-import ClearIcon from "@material-ui/icons/Clear"
-import TextField from "@material-ui/core/TextField"
-import ArrowBackIcon from "@material-ui/icons/ArrowBack"
-import { useCurrentWitdh } from "../../shared/custom-hooks/useCurrentWidth"
-import Select from "../common/select/Select"
+import React, { useState, useRef } from 'react';
+import './Search.scss';
+import { accountClasses } from '../../shared/enums/accountLabelEnum';
+import SearchIcon from '@material-ui/icons/Search';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import ClearIcon from '@material-ui/icons/Clear';
+import TextField from '@material-ui/core/TextField';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { useCurrentWitdh } from '../../shared/custom-hooks/useCurrentWidth';
+import Select from '../common/select/Select';
 
 const statusList = [
-  { name: "Hoạt động", value: 1 },
-  { name: "Không hoạt động", value: 0 },
-]
+  { name: 'Hoạt động', value: 1 },
+  { name: 'Không hoạt động', value: 0 },
+];
 
 const Search = ({
   label,
@@ -25,40 +25,40 @@ const Search = ({
   setKey,
   setCurrentPage,
 }) => {
-  const [l, setL] = useState(label)
-  const [k1, setK1] = useState("")
-  const [k, setK] = useState(keyword || k1)
-  const [s, setS] = useState(status)
-  const [filterToggle, setFilterToggle] = useState(false)
-  const width = useCurrentWitdh()
-  const form = useRef(null)
+  const [l, setL] = useState(label);
+  const [k1, setK1] = useState('');
+  const [k, setK] = useState(keyword || k1);
+  const [s, setS] = useState(status);
+  const [filterToggle, setFilterToggle] = useState(false);
+  const width = useCurrentWitdh();
+  const form = useRef(null);
 
   function resetParam() {
-    setL("")
-    setK("")
-    setK1("")
-    setS("")
-    setCurrentPage(1)
+    setL('');
+    setK('');
+    setK1('');
+    setS('');
+    setCurrentPage(1);
   }
 
   function onSubmitAll(e) {
-    e.preventDefault()
-    setFilterToggle(false)
-    setKey(k)
-    setLabel(l)
-    setStatus(s)
-    resetParam()
+    e.preventDefault();
+    setFilterToggle(false);
+    setKey(k);
+    setLabel(l);
+    setStatus(s);
+    resetParam();
   }
 
   function onSubmitkey(e) {
-    e.preventDefault()
-    setKey(k1)
-    resetParam()
+    e.preventDefault();
+    setKey(k1);
+    resetParam();
   }
 
   const handleToggle = () => {
-    setFilterToggle(!filterToggle)
-  }
+    setFilterToggle(!filterToggle);
+  };
 
   return (
     <div className='search'>
@@ -86,7 +86,7 @@ const Search = ({
                 {k1 && (
                   <ClearIcon
                     className='icon icon-clear-input'
-                    onClick={() => setK1("")}
+                    onClick={() => setK1('')}
                   />
                 )}
                 {filterToggle ? (
@@ -102,8 +102,9 @@ const Search = ({
       {filterToggle && (
         <form onSubmit={onSubmitAll} ref={form}>
           <div
-            className='backdrop'
-            onClick={() => setFilterToggle(!filterToggle)}></div>
+            className='search-overlay'
+            onClick={() => setFilterToggle(!filterToggle)}
+          ></div>
           <div className='form'>
             <ArrowBackIcon
               className='icon icon-back'
@@ -134,7 +135,7 @@ const Search = ({
         </form>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;
