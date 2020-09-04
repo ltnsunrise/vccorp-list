@@ -54,7 +54,6 @@ const Item = ({ user }) => {
     formData.set('pageId', user.id);
     formData.set('classType', type);
     setShowType(false);
-
     try {
       await authFetch.post(`g/api/system/page/update_class_type`, formData);
     } catch (error) {
@@ -68,63 +67,53 @@ const Item = ({ user }) => {
     }
   }
 
-  const displayLabel = useCallback(
-    () => (
-      <>
-        <Modal
-          title='Nhãn'
-          submit={handleChangeLabel}
-          isShowing={showLabel}
-          hide={() => setShowLabel(!showLabel)}
-        >
-          <div
-            onChange={(e) => {
-              setLabel(e.target.value);
-            }}
-          >
-            {accountClasses.map((item) => (
-              <div key={item.value} className='item-radio'>
-                <label>
-                  <input
-                    type='radio'
-                    name='label'
-                    value={item.value}
-                    defaultChecked={user.class === item.value}
-                  />
-                  {item.name}
-                </label>
-              </div>
-            ))}
-          </div>
-        </Modal>
+  const displayLabel = () => (
+    <>
+      <Modal
+        title='Nhãn'
+        submit={handleChangeLabel}
+        isShowing={showLabel}
+        hide={() => setShowLabel(!showLabel)}
+      >
         <div
-          className='select-container'
-          onClick={() => setShowLabel(!showLabel)}
+          onChange={(e) => {
+            setLabel(e.target.value);
+          }}
         >
-          {nameLabel}
-          {/* {accountClasses.map((item) => {
-            if (item.value === user.class) {
-              return item.name;
-            }
-           })} */}
-          {/* {accountClasses.filter((item) => item.value === user.class).length ===
-          0 && "Khác"} */}
-          <ExpandMoreIcon className='icon-expand' />
+          {accountClasses.map((item) => (
+            <div key={item.value} className='item-radio'>
+              <label>
+                <input
+                  type='radio'
+                  name='label'
+                  value={item.value}
+                  defaultChecked={user.class === item.value}
+                />
+                {item.name}
+              </label>
+            </div>
+          ))}
         </div>
-      </>
-    ),
-    []
+      </Modal>
+      <div
+        className='select-container'
+        onClick={() => setShowLabel(!showLabel)}
+      >
+        {nameLabel}
+        <ExpandMoreIcon className='icon-expand' />
+      </div>
+    </>
   );
 
   useEffect(() => {
-    if (!accountClasses.some((item) => item.value === label)) {
-      setNameLabel('Khác');
-    } else {
+    if (accountClasses.some((item) => item.value === label)) {
       accountClasses.map((item) => {
         if (item.value === label) {
-          setNameLabel(item.name);
+          return setNameLabel(item.name);
         }
       });
+    } else {
+      return setNameLabel('Khác');
     }
   }, [label]);
 
