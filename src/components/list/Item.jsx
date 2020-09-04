@@ -1,115 +1,132 @@
-import React, { useState, useEffect, memo, useCallback } from "react"
-import "./Item.scss"
+import React, { useState, useEffect, memo, useCallback } from 'react';
+import './Item.scss';
 
-import { Tooltip } from "@material-ui/core"
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import Collapse from "@material-ui/core/Collapse"
-
-import { useCurrentWitdh } from "../../shared/custom-hooks/useCurrentWidth"
+import { Tooltip } from '@material-ui/core';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useCurrentWitdh } from '../../shared/custom-hooks/useCurrentWidth';
 import {
   accountCredibility,
   accountClassLabel,
-} from "../../shared/enums/accountTypeEnum"
-import { accountClasses } from "../../shared/enums/accountLabelEnum"
-import { authFetch } from "../../shared/authFetch"
-import Modal from "../common/modal/Modal"
+} from '../../shared/enums/accountTypeEnum';
+import { accountClasses } from '../../shared/enums/accountLabelEnum';
+import { authFetch } from '../../shared/authFetch';
+import Modal from '../common/modal/Modal';
 
 const Item = ({ user }) => {
-  const isOther = accountClasses.some((item) => item.value === user.class)
-  const [label, setLabel] = useState(isOther ? user.class : 0)
+  const isOther = accountClasses.some((item) => item.value === user.class);
+  const [label, setLabel] = useState(isOther ? user.class : 0);
+  const [nameLabel, setNameLabel] = useState('');
+  const [showLabel, setShowLabel] = useState(false);
+  const [showType, setShowType] = useState(false);
 
-  const [showLabel, setShowLabel] = useState(false)
-  const [showType, setShowType] = useState(false)
-
-  const [type, setType] = useState(user.classType || "")
-  const [expanded, setExpanded] = useState(false)
-  let width = useCurrentWitdh()
+  const [type, setType] = useState(user.classType || '');
+  const [expanded, setExpanded] = useState(false);
+  let width = useCurrentWitdh();
 
   useEffect(() => {
-    if (width > 576) setExpanded(false)
-  }, [width])
+    if (width > 576) setExpanded(false);
+  }, [width]);
 
   function getStatus(status) {
     if (status) {
-      return "Hoạt động"
+      return 'Hoạt động';
     } else {
-      return "Không hoạt động"
+      return 'Không hoạt động';
     }
   }
 
   async function handleChangeLabel() {
-    const formData = new FormData()
-    formData.set("pageId", user.id)
-    formData.set("class", label)
-    setShowLabel(false)
+    const formData = new FormData();
+    formData.set('pageId', user.id);
+    formData.set('class', label);
+    setShowLabel(false);
 
     try {
-      await authFetch.post(`g/api/system/page/update_class`, formData)
+      await authFetch.post(`g/api/system/page/update_class`, formData);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   async function handleChangeType() {
-    const formData = new FormData()
-    formData.set("pageId", user.id)
-    formData.set("classType", type)
-    setShowType(false)
+    const formData = new FormData();
+    formData.set('pageId', user.id);
+    formData.set('classType', type);
+    setShowType(false);
 
     try {
-      await authFetch.post(`g/api/system/page/update_class_type`, formData)
+      await authFetch.post(`g/api/system/page/update_class_type`, formData);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   function handleExpand() {
     if (width <= 576) {
-      setExpanded(!expanded)
+      setExpanded(!expanded);
     }
   }
 
-  const displayLabel = () => (
-    <>
-      <Modal
-        title='Nhãn'
-        submit={handleChangeLabel}
-        isShowing={showLabel}
-        hide={() => setShowLabel(!showLabel)}>
+  const displayLabel = useCallback(
+    () => (
+      <>
+        <Modal
+          title='Nhãn'
+          submit={handleChangeLabel}
+          isShowing={showLabel}
+          hide={() => setShowLabel(!showLabel)}
+        >
+          <div
+            onChange={(e) => {
+              setLabel(e.target.value);
+            }}
+          >
+            {accountClasses.map((item) => (
+              <div key={item.value} className='item-radio'>
+                <label>
+                  <input
+                    type='radio'
+                    name='label'
+                    value={item.value}
+                    defaultChecked={user.class === item.value}
+                  />
+                  {item.name}
+                </label>
+              </div>
+            ))}
+          </div>
+        </Modal>
         <div
-          onChange={(e) => {
-            setLabel(e.target.value)
-          }}>
-          {accountClasses.map((item) => (
-            <div key={item.value} className='item-radio'>
-              <label>
-                <input
-                  type='radio'
-                  name='label'
-                  value={item.value}
-                  defaultChecked={user.class === item.value}
-                />
-                {item.name}
-              </label>
-            </div>
-          ))}
+          className='select-container'
+          onClick={() => setShowLabel(!showLabel)}
+        >
+          {nameLabel}
+          {/* {accountClasses.map((item) => {
+            if (item.value === user.class) {
+              return item.name;
+            }
+           })} */}
+          {/* {accountClasses.filter((item) => item.value === user.class).length ===
+          0 && "Khác"} */}
+          <ExpandMoreIcon className='icon-expand' />
         </div>
-      </Modal>
-      <div
-        className='select-container'
-        onClick={() => setShowLabel(!showLabel)}>
-        {accountClasses.map((item) => {
-          if (item.value === user.class) {
-            return item.name
-          }
-        })}
-        {accountClasses.filter((item) => item.value === user.class).length ===
-          0 && "Khác"}{" "}
-        <ExpandMoreIcon className='icon-expand' />
-      </div>
-    </>
-  )
+      </>
+    ),
+    []
+  );
+
+  useEffect(() => {
+    if (!accountClasses.some((item) => item.value === label)) {
+      setNameLabel('Khác');
+    } else {
+      accountClasses.map((item) => {
+        if (item.value === label) {
+          setNameLabel(item.name);
+        }
+      });
+    }
+  }, [label]);
 
   function displayType() {
     return (
@@ -120,7 +137,8 @@ const Item = ({ user }) => {
               title='Loại'
               submit={handleChangeType}
               isShowing={showType}
-              hide={() => setShowType(!showType)}>
+              hide={() => setShowType(!showType)}
+            >
               {accountCredibility.map((item) => (
                 <div key={item.value} className='item-radio'>
                   <label>
@@ -137,17 +155,18 @@ const Item = ({ user }) => {
             </Modal>
             <div
               className='select-container'
-              onClick={() => setShowType(!showType)}>
+              onClick={() => setShowType(!showType)}
+            >
               {accountCredibility.map((item) => {
                 if (item.value === user.classType) {
-                  return item.name
+                  return item.name;
                 }
-              })}{" "}
+              })}{' '}
               {accountCredibility.filter(
                 (item) => item.value === user.classType
               ).length === 0 && (
                 <span className='not-classified'>Chưa phân loại</span>
-              )}{" "}
+              )}{' '}
               <ExpandMoreIcon className='icon-expand' />
             </div>
           </>
@@ -158,7 +177,8 @@ const Item = ({ user }) => {
               title='Loại'
               submit={handleChangeType}
               isShowing={showType}
-              hide={() => setShowType(!showType)}>
+              hide={() => setShowType(!showType)}
+            >
               {accountClassLabel.map((item) => (
                 <div key={item.value} className='item-radio'>
                   <label>
@@ -176,22 +196,23 @@ const Item = ({ user }) => {
             </Modal>
             <div
               className='select-container'
-              onClick={() => setShowType(!showType)}>
+              onClick={() => setShowType(!showType)}
+            >
               {accountClassLabel.map((item) => {
                 if (item.value === user.classType) {
-                  return item.name
+                  return item.name;
                 }
-              })}{" "}
+              })}{' '}
               {accountClassLabel.filter((item) => item.value === user.classType)
                 .length === 0 && (
                 <span className='not-classified'>Chưa phân loại</span>
-              )}{" "}
+              )}{' '}
               <ExpandMoreIcon className='icon-expand' />
             </div>
           </div>
         )}
       </>
-    )
+    );
   }
 
   return (
@@ -201,10 +222,10 @@ const Item = ({ user }) => {
           <div className='user' onClick={handleExpand}>
             <Tooltip title={getStatus(user.status)}>
               <img
-                className={`user__avatar ${user.status && "online"}`}
+                className={`user__avatar ${user.status && 'online'}`}
                 src={
                   user.avatar ||
-                  "http://vietid.vcmedia.vn/thumb_w/100/vietid/image/avatars/default.png"
+                  'http://vietid.vcmedia.vn/thumb_w/100/vietid/image/avatars/default.png'
                 }
                 alt='avt'
               />
@@ -233,7 +254,7 @@ const Item = ({ user }) => {
       </tr>
       {/* <div className={`hide ${expanded && "active"}`}> */}
 
-      <div className={expanded ? "active" : "hide"}>
+      <div className={expanded ? 'active' : 'hide'}>
         <div className='expand'>
           <div className='row'>
             <label className='label'>Nhãn: </label>
@@ -263,7 +284,7 @@ const Item = ({ user }) => {
         </div>
       )} */}
     </>
-  )
-}
+  );
+};
 
-export default memo(Item)
+export default memo(Item);
