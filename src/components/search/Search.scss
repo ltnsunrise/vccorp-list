@@ -62,7 +62,7 @@
   width: 500px;
   top: 60px;
   left: 20px;
-  z-index: 5;
+  z-index: 15;
   font-size: 14px;
 
   display: flex;
@@ -73,17 +73,8 @@
 
   .icon-back {
     display: none;
+    margin-bottom: 0.5em;
     visibility: hidden;
-  }
-
-  .MuiTextField-root {
-    border: 1px solid #82868e;
-    padding: 0 1em;
-    margin: 0.5em 0;
-    border-radius: 4px;
-    .MuiInputBase-input {
-      font-size: 14px;
-    }
   }
 
   .btn {
@@ -94,15 +85,15 @@
     border-radius: 4px;
     color: #fff;
   }
-}
 
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
+  input {
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 @media only screen and (max-width: $mobile-bp) {

@@ -9,6 +9,7 @@ import ClearIcon from "@material-ui/icons/Clear"
 import TextField from "@material-ui/core/TextField"
 import ArrowBackIcon from "@material-ui/icons/ArrowBack"
 import { useCurrentWitdh } from "../../shared/custom-hooks/useCurrentWidth"
+import Select from "../common/select/Select"
 
 const statusList = [
   { name: "Hoạt động", value: 1 },
@@ -31,18 +32,6 @@ const Search = ({
   const [filterToggle, setFilterToggle] = useState(false)
   const width = useCurrentWitdh()
   const form = useRef(null)
-
-  const defaultPropsStatus = {
-    options: statusList,
-    getOptionLabel: (option) => option.name,
-    getOptionSelected: (option, status) => option.value === status,
-  }
-
-  const defaultPropsLabel = {
-    options: accountClasses,
-    getOptionLabel: (option) => option.name,
-    getOptionSelected: (option, label) => option.value === label,
-  }
 
   function resetParam() {
     setL("")
@@ -73,7 +62,6 @@ const Search = ({
 
   return (
     <div className='search'>
-      <div></div>
       <form onSubmit={onSubmitkey}>
         <div className='search-box'>
           {width < 576 ? (
@@ -122,38 +110,23 @@ const Search = ({
               onClick={() => setFilterToggle(!filterToggle)}
             />
 
-            <TextField
+            <input
               type='text'
               value={k}
               onChange={(e) => setK(e.target.value)}
               placeholder='Tìm kiếm...'
             />
-            <Autocomplete
-              {...defaultPropsLabel}
-              onChange={(e, v) => {
-                if (v) {
-                  setL(v.value)
-                } else {
-                  setL("")
-                }
-              }}
-              renderInput={(params) => (
-                <TextField {...params} placeholder='Nhãn phân loại' value={l} />
-              )}
+            <Select
+              options={accountClasses}
+              placeholder='Nhãn phân loại'
+              onSelect={(e) => setL(e)}
             />
-            <Autocomplete
-              {...defaultPropsStatus}
-              onChange={(e, v) => {
-                if (v) {
-                  setS(v.value)
-                } else {
-                  setS("")
-                }
-              }}
-              renderInput={(params) => (
-                <TextField {...params} placeholder='Trạng thái' value={s} />
-              )}
+            <Select
+              options={statusList}
+              placeholder='Trạng thái'
+              onSelect={(e) => setS(e)}
             />
+
             <button className='btn' type='submit'>
               Tìm kiếm
             </button>

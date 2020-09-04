@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react"
+import React, { useState, useEffect, memo, useCallback } from "react"
 import "./Item.scss"
 
 import { Tooltip } from "@material-ui/core"
@@ -42,9 +42,10 @@ const Item = ({ user }) => {
     const formData = new FormData()
     formData.set("pageId", user.id)
     formData.set("class", label)
+    setShowLabel(false)
+
     try {
       await authFetch.post(`g/api/system/page/update_class`, formData)
-      setShowLabel(false)
     } catch (error) {
       console.log(error)
     }
@@ -54,10 +55,10 @@ const Item = ({ user }) => {
     const formData = new FormData()
     formData.set("pageId", user.id)
     formData.set("classType", type)
+    setShowType(false)
 
     try {
       await authFetch.post(`g/api/system/page/update_class_type`, formData)
-      setShowType(false)
     } catch (error) {
       console.log(error)
     }
@@ -69,45 +70,46 @@ const Item = ({ user }) => {
     }
   }
 
-  function displayLabel() {
-    return (
-      <>
-        <Modal
-          title='Nhãn'
-          submit={handleChangeLabel}
-          isShowing={showLabel}
-          hide={() => setShowLabel(!showLabel)}>
-          <div onChange={(e) => setLabel(e.target.value)}>
-            {accountClasses.map((item) => (
-              <div key={item.value}>
-                <label>
-                  <input
-                    type='radio'
-                    name='label'
-                    value={item.value}
-                    defaultChecked={user.class === item.value}
-                  />
-                  {item.name}
-                </label>
-              </div>
-            ))}
-          </div>
-        </Modal>
+  const displayLabel = () => (
+    <>
+      <Modal
+        title='Nhãn'
+        submit={handleChangeLabel}
+        isShowing={showLabel}
+        hide={() => setShowLabel(!showLabel)}>
         <div
-          className='select-container'
-          onClick={() => setShowLabel(!showLabel)}>
-          {accountClasses.map((item) => {
-            if (item.value === user.class) {
-              return item.name
-            }
-          })}
-          {accountClasses.filter((item) => item.value === user.class).length ===
-            0 && "Khác"}{" "}
-          <ExpandMoreIcon />
+          onChange={(e) => {
+            setLabel(e.target.value)
+          }}>
+          {accountClasses.map((item) => (
+            <div key={item.value} className='item-radio'>
+              <label>
+                <input
+                  type='radio'
+                  name='label'
+                  value={item.value}
+                  defaultChecked={user.class === item.value}
+                />
+                {item.name}
+              </label>
+            </div>
+          ))}
         </div>
-      </>
-    )
-  }
+      </Modal>
+      <div
+        className='select-container'
+        onClick={() => setShowLabel(!showLabel)}>
+        {accountClasses.map((item) => {
+          if (item.value === user.class) {
+            return item.name
+          }
+        })}
+        {accountClasses.filter((item) => item.value === user.class).length ===
+          0 && "Khác"}{" "}
+        <ExpandMoreIcon className='icon-expand' />
+      </div>
+    </>
+  )
 
   function displayType() {
     return (
@@ -120,7 +122,7 @@ const Item = ({ user }) => {
               isShowing={showType}
               hide={() => setShowType(!showType)}>
               {accountCredibility.map((item) => (
-                <div key={item.value}>
+                <div key={item.value} className='item-radio'>
                   <label>
                     <input
                       type='radio'
@@ -141,9 +143,12 @@ const Item = ({ user }) => {
                   return item.name
                 }
               })}{" "}
-              {accountClasses.filter((item) => item.value === user.classType)
-                .length === 0 && "Chưa phân loại"}{" "}
-              <ExpandMoreIcon />
+              {accountCredibility.filter(
+                (item) => item.value === user.classType
+              ).length === 0 && (
+                <span className='not-classified'>Chưa phân loại</span>
+              )}{" "}
+              <ExpandMoreIcon className='icon-expand' />
             </div>
           </>
         )}
@@ -155,7 +160,7 @@ const Item = ({ user }) => {
               isShowing={showType}
               hide={() => setShowType(!showType)}>
               {accountClassLabel.map((item) => (
-                <div key={item.value}>
+                <div key={item.value} className='item-radio'>
                   <label>
                     <input
                       type='radio'
@@ -178,8 +183,10 @@ const Item = ({ user }) => {
                 }
               })}{" "}
               {accountClassLabel.filter((item) => item.value === user.classType)
-                .length === 0 && "Chưa phân loại"}{" "}
-              <ExpandMoreIcon />
+                .length === 0 && (
+                <span className='not-classified'>Chưa phân loại</span>
+              )}{" "}
+              <ExpandMoreIcon className='icon-expand' />
             </div>
           </div>
         )}
@@ -219,26 +226,42 @@ const Item = ({ user }) => {
           </>
         )}
 
-        <td width='100' align='center'>
+        <td width='100' align='center' className='edit-colmn'>
           <MoreHorizIcon className='icon icon-edit' />
           <ExpandMoreIcon className='icon icon-expand' />
         </td>
       </tr>
+      {/* <div className={`hide ${expanded && "active"}`}> */}
 
-      <Collapse in={expanded} timeout='auto' unmountOnExit>
+      <div className={expanded ? "active" : "hide"}>
         <div className='expand'>
           <div className='row'>
-            <label>Nhãn: </label>
+            <label className='label'>Nhãn: </label>
             {displayLabel()}
           </div>
           {(label === 1 || label === 3) && (
             <div className='row'>
-              <label>Loại: </label>
+              <label className='type'>Loại: </label>
               {displayType()}
             </div>
           )}
         </div>
-      </Collapse>
+      </div>
+
+      {/* {expanded && (
+        <div className='expand'>
+          <div className='row'>
+            <label className='label'>Nhãn: </label>
+            {displayLabel()}
+          </div>
+          {(label === 1 || label === 3) && (
+            <div className='row'>
+              <label className='type'>Loại: </label>
+              {displayType()}
+            </div>
+          )}
+        </div>
+      )} */}
     </>
   )
 }
