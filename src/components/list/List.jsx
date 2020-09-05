@@ -4,7 +4,7 @@ import "./List.scss"
 import Item from "./Item"
 import { useCurrentWitdh } from "../../shared/custom-hooks/useCurrentWidth"
 
-const List = ({ users }) => {
+const List = ({ users, handleFetchUsers }) => {
   let width = useCurrentWitdh()
   if (!users) return <div className='no-data'>Không có dữ liệu</div>
 
@@ -25,7 +25,14 @@ const List = ({ users }) => {
         </thead>
 
         <tbody>
-          {users && users.map((user) => <Item key={user?.id} user={user} />)}
+          {users &&
+            users.map((user) => (
+              <Item
+                key={user?.id}
+                user={user}
+                handleFetchUsers={handleFetchUsers}
+              />
+            ))}
         </tbody>
       </table>
     </>
