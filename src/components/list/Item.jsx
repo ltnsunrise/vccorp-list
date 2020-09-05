@@ -1,7 +1,6 @@
-import React, { useState, useEffect, memo, useCallback } from "react"
+import React, { useState, useEffect, memo } from "react"
 import "./Item.scss"
 
-import { Tooltip } from "@material-ui/core"
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { useCurrentWitdh } from "../../shared/custom-hooks/useCurrentWidth"
@@ -28,8 +27,8 @@ const Item = ({ user, handleFetchUsers }) => {
     if (width > 576) setExpanded(false)
   }, [width])
 
-  function getStatus(status) {
-    if (status) {
+  function getStatus() {
+    if (user.status) {
       return "Hoạt động"
     } else {
       return "Không hoạt động"
@@ -110,10 +109,13 @@ const Item = ({ user, handleFetchUsers }) => {
         if (item.value === user.class) {
           return setNameLabel(item.name)
         }
+        return null
       })
     } else {
       return setNameLabel("Khác")
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function displayType() {
@@ -147,6 +149,7 @@ const Item = ({ user, handleFetchUsers }) => {
                 if (item.value === user.classType) {
                   return item.name
                 }
+                return null
               })}{" "}
               {accountCredibility.filter(
                 (item) => item.value === user.classType
@@ -186,6 +189,7 @@ const Item = ({ user, handleFetchUsers }) => {
                 if (item.value === user.classType) {
                   return item.name
                 }
+                return null
               })}{" "}
               {accountClassLabel.filter((item) => item.value === user.classType)
                 .length === 0 && (
@@ -204,7 +208,7 @@ const Item = ({ user, handleFetchUsers }) => {
       <tr className='table-row'>
         <td>
           <div className='user' onClick={handleExpand}>
-            <Tooltip title={getStatus(user.status)}>
+            <div className='avatar' data-tooltip={getStatus()}>
               <img
                 className={`user__avatar ${user.status && "online"}`}
                 src={
@@ -213,7 +217,8 @@ const Item = ({ user, handleFetchUsers }) => {
                 }
                 alt='avt'
               />
-            </Tooltip>
+            </div>
+
             <div className='user__info'>
               <div className='user__info__name'>{user.fullName}</div>
               <div>owner: {user.phoneOwner}</div>
@@ -236,21 +241,8 @@ const Item = ({ user, handleFetchUsers }) => {
           <ExpandMoreIcon className='icon icon-expand' />
         </td>
       </tr>
-      {/* <div className={`hide ${expanded && "active"}`}> */}
 
       {/* <div className={expanded ? 'active' : 'hide'}>
-        <div className='expand'>
-          <div className='row'>
-            <label className='label'>Nhãn: </label>
-            {displayLabel()}
-          </div>
-          {(label === 1 || label === 3) && (
-            <div className='row'>
-              <label className='type'>Loại: </label>
-              {displayType()}
-            </div>
-          )}
-        </div>
       </div> */}
 
       {expanded && (

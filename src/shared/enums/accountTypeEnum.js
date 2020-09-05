@@ -18,7 +18,6 @@ export const accountCredibility = [
 export const accountClassLabel = [
   { name: "Content creat or", value: AccountClassLabel.Creator },
   { name: "KOL", value: AccountClassLabel.KOL },
-  { name: "KOL", value: AccountClassLabel.KOL },
   { name: "Sao", value: AccountClassLabel.Star },
   { name: "Cộng đồng", value: AccountClassLabel.Community },
   { name: "Youtuber", value: AccountClassLabel.Youtuber },

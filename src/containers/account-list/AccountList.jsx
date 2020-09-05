@@ -26,7 +26,6 @@ const AccountList = ({ location, history }) => {
   const [pageSize, setPageSize] = useState(30)
   const [isDisableNext, setIsDisableNext] = useState(false)
   const [maxPage, setMaxPage] = useState(0)
-  // const { addToast } = useToasts()
 
   function handleNextPage() {
     setCurrentPage(currentPage + 1)
@@ -56,18 +55,13 @@ const AccountList = ({ location, history }) => {
         setIsLoading(false)
         setUsers(data.data?.data)
         setTotalPage(data.data.total)
-
-        // addToast("Successfully", {
-        //   appearance: "success",
-        //   autoDismiss: true,
-        // })
       }
     } catch (error) {
       setIsLoading(false)
 
-      // addToast("Error", { appearance: "error", autoDismiss: true })
       console.log(error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, keyword, label, status])
 
   useEffect(() => {
@@ -78,6 +72,7 @@ const AccountList = ({ location, history }) => {
     setStatus(query.get("status"))
     setKey(query.get("keyword"))
     setLabel(query.get("label"))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
   useEffect(() => {

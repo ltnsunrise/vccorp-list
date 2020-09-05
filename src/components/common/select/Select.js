@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback, useRef } from "react"
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown"
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp"
 import "./Select.scss"
@@ -17,14 +17,15 @@ const Select = ({ options, placeholder, onSelect }) => {
   const [filteredOptions, setFilteredOptions] = useState([])
   const [showOptions, setShowOptions] = useState(false)
   const [userInput, setUserInput] = useState("")
+  const optionRef = useRef(null)
 
   const onChange = (e) => {
     setShowOptions(true)
     setUserInput(e.currentTarget.value)
   }
 
-  const closeMenu = () => {
-    setShowOptions(false)
+  const closeMenu = (event) => {
+    if (!optionRef.current?.contains(event.target)) setShowOptions(false)
     document.removeEventListener("click", closeMenu)
   }
 
@@ -32,6 +33,7 @@ const Select = ({ options, placeholder, onSelect }) => {
     event.preventDefault()
     setShowOptions(!showOptions)
     document.addEventListener("click", closeMenu)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const Select = ({ options, placeholder, onSelect }) => {
     )
     setActiveOption(0)
     setFilteredOptions(filteredOpts)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInput])
 
   const onClick = (e) => {
@@ -109,10 +112,7 @@ const Select = ({ options, placeholder, onSelect }) => {
           onChange={onChange}
           onKeyDown={onKeyDown}
           value={userInput}
-          onClick={(event) => {
-            event.preventDefault()
-            setShowOptions(!showOptions)
-          }}
+          onClick={showMenu}
           placeholder={placeholder}
         />
         {showOptions ? (
@@ -121,7 +121,10 @@ const Select = ({ options, placeholder, onSelect }) => {
           <ArrowDropDownIcon className='icon' onClick={showMenu} />
         )}
       </div>
-      <div className='options-list'>{optionList}</div>
+
+      <div className='options-list' ref={optionRef}>
+        {optionList}
+      </div>
     </div>
   )
 }

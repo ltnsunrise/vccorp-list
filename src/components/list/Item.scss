@@ -5,6 +5,38 @@
   &:focus {
     background-color: #e2e8f0;
   }
+
+  .avatar {
+    position: relative;
+    display: flex;
+  }
+
+  .avatar::before {
+    --scale: 0;
+    --tooltip-color: rgb(92, 92, 92);
+    font-size: 12px;
+    position: absolute;
+    top: 36px;
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--translate-y, 0))
+      scale(var(--scale));
+    transition: 0.2s transform ease-in-out;
+    transform-origin: bottom center;
+    z-index: 2;
+
+    content: attr(data-tooltip);
+    color: white;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    text-align: center;
+    width: fit-content;
+    background: var(--tooltip-color);
+  }
+
+  .avatar:hover::before {
+    --scale: 1;
+  }
+
   &__avatar {
     width: 32px;
     height: 32px;

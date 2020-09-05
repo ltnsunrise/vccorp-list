@@ -4,7 +4,7 @@
   display: flex;
   height: 100%;
   max-width: 100%;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   color: #2d3748;
   letter-spacing: 0.4px;
@@ -63,6 +63,3 @@
     height: 16px;
   }
 }
-
-// @media only screen and (min-width: $mobile-bp) {
-// }
