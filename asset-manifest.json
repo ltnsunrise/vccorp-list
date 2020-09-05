@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/vccorp-list/static/css/main.eb7b969d.chunk.css",
-    "main.js": "/vccorp-list/static/js/main.6ca641de.chunk.js",
-    "main.js.map": "/vccorp-list/static/js/main.6ca641de.chunk.js.map",
+    "main.js": "/vccorp-list/static/js/main.fb3fbadb.chunk.js",
+    "main.js.map": "/vccorp-list/static/js/main.fb3fbadb.chunk.js.map",
     "runtime-main.js": "/vccorp-list/static/js/runtime-main.aa23b360.js",
     "runtime-main.js.map": "/vccorp-list/static/js/runtime-main.aa23b360.js.map",
     "static/js/2.955e3117.chunk.js": "/vccorp-list/static/js/2.955e3117.chunk.js",
     "static/js/2.955e3117.chunk.js.map": "/vccorp-list/static/js/2.955e3117.chunk.js.map",
     "index.html": "/vccorp-list/index.html",
-    "precache-manifest.f8c266f0a81e93a00915c9a1f4c2b46e.js": "/vccorp-list/precache-manifest.f8c266f0a81e93a00915c9a1f4c2b46e.js",
+    "precache-manifest.7e6ae7dbd94a68e45d458f2d5b9f9b34.js": "/vccorp-list/precache-manifest.7e6ae7dbd94a68e45d458f2d5b9f9b34.js",
     "service-worker.js": "/vccorp-list/service-worker.js",
     "static/css/main.eb7b969d.chunk.css.map": "/vccorp-list/static/css/main.eb7b969d.chunk.css.map",
     "static/js/2.955e3117.chunk.js.LICENSE.txt": "/vccorp-list/static/js/2.955e3117.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.aa23b360.js",
     "static/js/2.955e3117.chunk.js",
     "static/css/main.eb7b969d.chunk.css",
-    "static/js/main.6ca641de.chunk.js"
+    "static/js/main.fb3fbadb.chunk.js"
   ]
 }
