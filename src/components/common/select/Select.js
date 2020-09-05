@@ -51,8 +51,8 @@ const Select = ({ options, placeholder, onSelect }) => {
   }
 
   const onKeyDown = (e) => {
-    e.preventDefault()
     if (e.keyCode === 13) {
+      e.preventDefault()
       setActiveOption(0)
       setShowOptions(false)
       setUserInput(filteredOptions[activeOption]["name"])
